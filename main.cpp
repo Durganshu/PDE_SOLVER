@@ -3,7 +3,7 @@
 
 void set_boundary_conditions(std::vector<std::vector<double>>& temperature);
 
-//std::vector<std::vector<double>> five_point_stencil(std::vector<std::vector<double>>);
+void five_point_stencil(std::vector<std::vector<double>>& temperature);
 
 //std::vector<std::vector<double>> eight_point_stencil(std::vector<std::vector<double>>);
 
@@ -24,12 +24,15 @@ int main()
     }
 
 
-                
+
     set_boundary_conditions(temperature);
 
+    std::cout<<"Grid after assigning BC"<<std::endl;
     print_grid(temperature);
 
-    //std::vector<std::vector<double>> five_point = five_point_stencil(temperature);
+    
+    five_point_stencil(temperature);
+    std::cout<<"Grid after iterating through five point stencil "<<std::endl;
 
     //std::vector<std::vector<double>> eight_point = eight_point_stencil(temperature);
 
@@ -75,4 +78,28 @@ for (int i=0;i<H;i++){
         }
     std::cout<<"\n";
     }
+}
+
+void five_point_stencil(std::vector<std::vector<double>>& temperature){
+
+    std::vector<std::vector<double>> temperature_updated=temperature;
+    int H= temperature.size();
+    int L=temperature[0].size();
+
+    //Modifying the interior grid points at a particular iteration
+    int num_iter=0;
+    while(num_iter<3){
+        std::cout<<"Iteration number "<<num_iter<<std::endl;
+        for(int i=1;i<(H-1);i++){
+            for(int j=1;j<(L-1);j++){
+                temperature_updated[i][j]=(0.25)*(temperature_updated[i][j+1]+temperature_updated[i-1][j]+temperature_updated[i+1][j]+temperature_updated[i][j-1]);
+            }
+        }
+        std::cout<<"Grid after iteration "<<num_iter<<"is: \n \n";
+        print_grid(temperature_updated);
+    num_iter=num_iter+1;
+    }
+    
+
+    
 }
