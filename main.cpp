@@ -181,7 +181,7 @@ bool unit_test(char choice){
     //Calculating analytical solution
     std::vector<double> x_values, y_values;
     double i = 0;
-    double diff = 1.0/L;
+    double diff = 1.0/(L-1);
     
     while(i<1){
         x_values.push_back(i);
@@ -214,7 +214,7 @@ bool unit_test(char choice){
     }
     
 
-    double tol = 1e-1;
+    double tol = 1e-2;
 
     for (int i=0;i<H-3;i++){
         for (int j=0; j<L-3; j++){
