@@ -5,12 +5,6 @@
 #include <bits/stdc++.h>
 #include <cassert>
 
-/*******************************************************/
-//TO-DO:
-//1. Add a tolerance 
-//2. Add a plotting subroutine
-//3. Add a unit test
-/*******************************************************/
 void set_boundary_conditions(std::vector<std::vector<double>>& temperature);
 
 void five_point_stencil(std::vector<std::vector<double>>& temperature);
