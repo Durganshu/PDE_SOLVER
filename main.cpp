@@ -2,8 +2,11 @@
 #include<vector>
 #include <fstream>
 #include <cmath>
+#include <math.h>
 #include <bits/stdc++.h>
 #include <cassert>
+#include <limits>
+
 
 void set_boundary_conditions(std::vector<std::vector<double>>& temperature);
 
@@ -109,7 +112,7 @@ void five_point_stencil(std::vector<std::vector<double>>& temperature){
 
     //Modifying the interior grid points at a particular iteration
     int num_iter=0;
-    while(num_iter<10000){
+    while(num_iter<50000){
         //std::cout<<"Iteration number "<<num_iter<<std::endl;
         for(int i=1;i<(H-1);i++){
             for(int j=1;j<(L-1);j++){
@@ -132,7 +135,7 @@ void eight_point_stencil(std::vector<std::vector<double>>& temperature){
 
     //Modifying the interior grid points at a particular iteration
     int num_iter=0;
-    while(num_iter<10000){
+    while(num_iter<50000){
         //std::cout<<"Iteration number "<<num_iter<<std::endl;
         for(int i=1;i<(H-1);i++){
             for(int j=1;j<(L-1);j++){
@@ -184,7 +187,7 @@ bool unit_test(char choice){
         i = i + diff;
     }
     
-    double dim_x =1;
+    double dim_x = 1;
     double dim_y = 1;
 
     std::vector<std::vector<double>> reference_temperature, temp_temperature;
@@ -195,14 +198,26 @@ bool unit_test(char choice){
         temp_temperature[i].resize(L);
     }
 
-    for(int n=1;n<=200;n++){
+    for(int n=1;n<=50000;n++){
         double coeff = (2.0*(1.0-cos(n*M_PI)))/((n*M_PI)*sinh((n*M_PI*dim_y)/dim_x));
+        
         for(int k=0;k<H;k++){
-                double dummy_temp = dim_x*(coeff)*(sinh(((n*M_PI)/dim_x)*x_values[k]));
+                double hyperbolic_sine = sinh(((n*M_PI)/dim_x)*x_values[k]);
+                if(hyperbolic_sine> std::numeric_limits<double>::max()){
+                    hyperbolic_sine = std::numeric_limits<double>::max();
+                }
+                double dummy_temp = (coeff)*(hyperbolic_sine);
+                if(isnan(dummy_temp)){
+                    std::cout<<((n*M_PI)/dim_x)*x_values[k]<<",";
+                    std::cout<<"\n";
+                }
+                
                 for(int l = 0;l<L;l++){
                     temp_temperature[k][l] = dummy_temp*(sin(((n*M_PI)/dim_y)*y_values[l]));
                     reference_temperature[l][k] = reference_temperature[l][k] + temp_temperature[k][l];
+                    //std::cout<<reference_temperature[l][k]<<",";
                 }
+                 //std::cout<<"\n";
         }
 
     }
@@ -210,8 +225,8 @@ bool unit_test(char choice){
 
     double tol = 1e-2;
 
-    for (int i=0;i<H-3;i++){
-        for (int j=0; j<L-3; j++){
+    for (int i=4;i<H-5;i++){
+        for (int j=4; j<L-5; j++){
             // floating point values are "equal" if their
             // difference is small 
             if( std::abs(reference_temperature[i][j] - temperature[i][j] ) > tol ){

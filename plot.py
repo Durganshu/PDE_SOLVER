@@ -6,4 +6,4 @@ data = np.genfromtxt('results.csv', delimiter=',')
 plt.imshow(data, extent=[-1, 1, -1, 1])
 
 plt.show()
-plt.savefig("matplotlib.png")  #savefig, don't show
+plt.savefig("matplotlib1.png")  #savefig, don't show
