@@ -9,7 +9,8 @@
 
 
 /*****************************************************************************/
-////////FUNCTION DECLARATIONS////////////////////////////////////////////////
+/////////////////////////////FUNCTION DECLARATIONS///////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 void set_boundary_conditions(std::vector<std::vector<double>>& temperature, double left = 0, double right = 1,
                              double top = 0, double bottom = 0);
@@ -27,11 +28,19 @@ void write_results(const std::vector<double> x_values, const std::vector<double>
     const std::vector<std::vector<double>>& reference_temperature = {{}},std::string filename = "results.csv");
 
 
-/*****************************************************************************/
+/***************************************************************************/
+///////////////////////////////MAIN Function////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 int main()
 {
 
     std::cout<<"Initializing....."<<std::endl;
+
+    /********************************************************************/
+    //Initialize mesh, number of nodes and create data structure for 
+    //storing temperature
+    //////////////////////////////////////////////////////////////////////
+
     int nx = 100;
     int ny = 100;
     std::vector<double> x_values, y_values;
@@ -52,7 +61,18 @@ int main()
 
     std::cout<<"Meshing done....."<<std::endl;
 
-    //print_grid(temperature);
+    /********************************************************************/
+    
+
+    /********************************************************************/
+    // Take inputs from the user and proceed accordingly
+    //
+    // For the selected input (1 or 2), first set boundary conditions, 
+    // and then call the respective iterative scheme
+    //
+    // Taking the input as 3 will run a unit test. User will have the choice to see 
+    // the comparison of dfferent numerical solutions and the anayltical solution
+    ///////////////////////////////////////////////////////////////////////////////
 
     std::cout<<"How do you want to solve the problem?"<<std::endl;
     std::cout<<"Press 1 for Four Point Stencil"<<std::endl;
@@ -103,8 +123,21 @@ int main()
 }
 
 
-void set_boundary_conditions(std::vector<std::vector<double>> &temperature, double left, double right,
-                             double top, double bottom)
+/*****************************************************************************/
+////////////////////////////FUNCTION DEFINITIONS////////////////////////////
+
+/****************************************************************************/
+// This function sets the boundary conditions specified by the user.
+// 
+// It takes 5 inputs: a 2D vector that stores temperature values and
+// 4 double values for the temperature conditions at the boundary/
+// 
+// When imposing the boundary conditions for the numerical methods, the choices
+// from the user are considered. For the unit test, default arguments are taken.
+////////////////////////////////////////////////////////////////////////////////
+
+void set_boundary_conditions(std::vector<std::vector<double>> &temperature, 
+                            double left, double right, double top, double bottom)
 {
     int nx=temperature.size();
     int ny=temperature[0].size();
@@ -126,6 +159,13 @@ void set_boundary_conditions(std::vector<std::vector<double>> &temperature, doub
 
 }
 
+/****************************************************************************/
+
+/****************************************************************************/
+// This function takes a 2 vector of temperature values and prints it on 
+// the console
+/////////////////////////////////////////////////////////////////////////////
+
 void print_grid(const std::vector<std::vector<double>> &temperature)
 {
     int nx=temperature.size();
@@ -138,6 +178,15 @@ void print_grid(const std::vector<std::vector<double>> &temperature)
         std::cout<<"\n";
     }
 }
+
+/****************************************************************************/
+
+/****************************************************************************/
+// This function implements the four point stencil algorithm
+//
+// It takes the 2D vector of temperature values with boundary conditions 
+// imposed and then implements the underlying algorithm
+//////////////////////////////////////////////////////////////////////////////
 
 void four_point_stencil(std::vector<std::vector<double>>& temperature){
     std::cout<<"In progress........."<<std::endl;
@@ -162,6 +211,15 @@ void four_point_stencil(std::vector<std::vector<double>>& temperature){
    
 }
 
+/****************************************************************************/
+
+
+/****************************************************************************/
+// This function implements the eight point stencil algorithm
+// It takes the 2D vector of temperature values with boundary conditions 
+// imposed and then implements the underlying algorithm
+/////////////////////////////////////////////////////////////////////////////
+
 void eight_point_stencil(std::vector<std::vector<double>>& temperature){
     std::cout<<"In progress........."<<std::endl;
     int nx = temperature.size();
@@ -184,6 +242,15 @@ void eight_point_stencil(std::vector<std::vector<double>>& temperature){
     }
     std::cout<<"Eight point stencil implemented "<<std::endl;
 }
+
+
+/****************************************************************************/
+// This function performs a unit test comparing a pre-defined analytical
+// solution to the numerical ones. Whenever a unit test is to be performed,
+// the user has the choice to select anyone of the four point and eight point
+// stencil method. The boundary conditions are implemented by taking the
+// default parameters and finally, the results are written in a CSV file.
+/////////////////////////////////////////////////////////////////////////////
 
 bool unit_test(char choice){
     int nx = 100;
@@ -275,9 +342,25 @@ bool unit_test(char choice){
     //     // std::cout << "Reference: ";
     //     // std::cout << "Computed: ";    
     // }
-    write_results(x_values, y_values, temperature, reference_temperature, "reference_results.csv");
+    write_results(x_values, y_values, temperature, reference_temperature, "unit_test_results.csv");
     return tests_passed;
 }
+
+/************************************************************************************************************/
+// This function writes the results in csv file.
+//
+// For the case 1 and 2 (numerical solutions), three columns are written: X (X coordinates of the nodes), 
+// Y (Y coordinates of the nodes) and Numerical solution (the value of Temperature in K at that node)
+//
+// In the above case, the name of the output file is "results.csv" and is saved in the working directory.
+//
+// For the 3rd case (unit test), 5 columns are written:X (X coordinates of the nodes), 
+// Y (Y coordinates of the nodes), Numerical solution (the numerical value of Temperature in K at that node), 
+// Analytical solution(the exact value of Temperature in K at that node) and Error (absolute error between the
+// analytical and the numerical solution)
+//
+// In this case, the name of the output file is "unit_test_results.csv" and is saved in the working directory.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void write_results(const std::vector<double> x_values, const std::vector<double> y_values,
         const std::vector<std::vector<double>>& temperature, 
@@ -326,3 +409,4 @@ void write_results(const std::vector<double> x_values, const std::vector<double>
     std::cout<<"Success. Check "<<filename<<std::endl;
 
 }
+/************************************************************************************************************/
