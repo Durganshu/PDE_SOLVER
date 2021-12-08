@@ -64,8 +64,21 @@ This compares the results of a particular bounudary condition (as shown below) w
 
 3. Visualization of the temperature distribution at the steady state is implemented using matplotlib module in Python.  
 
+# Following snippets from the console display show the execution:
 
+![Compile_and_run_the_executable](/images/compile_and_ru.png)
 
+**For first two cases**
+![For_first_2_case](/images/first_user_input.png)
+
+![Boundary_conditions](/images/boundary_conditions.png)
+
+**For the unit test**
+![Second_user_input](/images/second_user_input.png)
+
+![Final_run](/images/final_run.png)
+
+**THANKS!!**
 
 
 
