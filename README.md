@@ -14,12 +14,14 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 (Image)
 - Default grid: 100 x 100 (equally spaced in both directions).
 # Solution Strategies:
-The 
-## Four Point Stencil
+## Four Point Stencil 
+-Calculates the temperature value at a given node by averaging the temperature of its 4 nearest neighbours.
 ![5 point stencil](/images/5pt_stencil.png)
 ## Eight Point Stencil
+-Calculates the temperature value at a given node by averaging the temperature of its 8 nearest neighbours.
 ![8 point point stencil](/images/8pt_stencil.jpg)
 # Unit Test:
+This compares the results of a particular bounudary condition with the results of the analytical solution imposed to those same Boundary conditions.
 
 
 
