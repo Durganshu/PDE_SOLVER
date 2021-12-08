@@ -41,6 +41,9 @@ This compares the results of a particular bounudary condition (as shown below) w
 ## Analytical solution
 ![General_Sol](/images/gen_solution.png)
 
+- For L=1, H=1 the equation simplifies into:
+
+![specific_Sol](/images/Spl_solution.png)
 
 
 
