@@ -38,7 +38,13 @@ This compares the results of a particular bounudary condition (as shown below) w
 
 ![Test Configuration at Steady state](/images/test_config.png)
 
-- Result of Unit Test (Temperature Distribution) 
+## Analytical solution
+![General_Sol](/images/gen_solution.png)
+
+
+
+
+## Result of Unit Test (Temperature Distribution) 
 
 <img src=/images/results.png width="500" height="400" />
 
