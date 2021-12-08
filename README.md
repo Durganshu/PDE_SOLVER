@@ -4,8 +4,16 @@
 In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T`$ =0. 
 
 # General Comments
-- No external library required 
-- Python 3 required for visualization
+- No external C++ library required 
+- Matplotlib module in Python 3 required for visualization of the computed results. 
+
+# Installing Python 3 and Matplotlib in Linux 
+
+`sudo apt update`
+
+`sudo apt install python3.8` 
+
+`pip install matplotlib`
 
 # Problem Formulation
 - Consider a square plate with length: L=1m and height: H=1m.
