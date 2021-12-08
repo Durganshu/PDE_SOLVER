@@ -27,8 +27,14 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 ![8 point point stencil](/images/8pt_stencil.jpg)
 # Unit Test:
 This compares the results of a particular bounudary condition (as shown below) with the results of the analytical solution imposed to those same boundary conditions.
+
 ![Test Configuration at Steady state](/images/test_config.png)
 
+- Result of Unit Test (Temperature Distribution) 
+
+![Unit Test](/images/results.png)
+
+# 
 
 
 
