@@ -5,13 +5,17 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 
 # General Comments
 - No external C++ library required 
-- Matplotlib module in Python 3 required for visualization of the computed results. 
+- Matplotlib and NumPy modules in python3 required for visualization of the computed results. 
 
-# Installing Python 3 and Matplotlib in Linux 
+# Installing Python3, NumPy and Matplotlib in Ubuntu Linux 
 
 `sudo apt update`
 
 `sudo apt install python3.8` 
+
+`sudo apt install python3-pip`
+
+`pip install numpy`
 
 `pip install matplotlib`
 
