@@ -91,6 +91,7 @@ This compares the results of a particular bounudary condition (as shown below) w
 ![first_few_lines](/images/results_csv.png)
 
 **...somewhere in between:**
+
 ![somewhere](/images/results_csv_1.png)
 
 **First few lines:**
@@ -98,6 +99,7 @@ This compares the results of a particular bounudary condition (as shown below) w
 ![first_few_lines](/images/unit_test_csv_1.png)
 
 **...somewhere in between:**
+
 ![somewhere](/images/unit_test_csv_2.png)
 
 **THANKS!!**
