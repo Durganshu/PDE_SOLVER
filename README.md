@@ -58,11 +58,15 @@ This compares the results of a particular bounudary condition (as shown below) w
 -  Eight Point stencil (Press 2)
 -  Run a unit Test (Press 3)
 
-2. If the user chooses either 1 or 2, the solution strategy is selected accordingly. The nodal coordinats are recorded in an excel file: "results.csv" along with their corrsponding temperature values. 
+2. If the user chooses either 1 or 2, the solution strategy is selected accordingly. The nodal coordinates are recorded in an excel file: "results.csv" along with their corrsponding temperature values. 
 
 - If the user decides to run a unit test, again there is a prompt to select either the 4 point or the 8 point stencil. The results of the unit test using a specific solution strategy and the analytical result are recorded in the excel file "reference_results.csv". Apart from the nodal coordniates and the corresponding temperature values, the solution of the analytical calculation and the absolute error is also recorded so that the user can gain confidence while using the algorithm. 
 
 3. Visualization of the temperature distribution at the steady state is implemented using matplotlib module in Python.  
+
+
+
+
 
 
 
