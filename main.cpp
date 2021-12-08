@@ -8,7 +8,11 @@
 #include <limits>
 
 
-void set_boundary_conditions(std::vector<std::vector<double>>& temperature);
+/*****************************************************************************/
+////////FUNCTION DECLARATIONS////////////////////////////////////////////////
+
+void set_boundary_conditions(std::vector<std::vector<double>>& temperature, double left = 0, double right = 1,
+                             double top = 0, double bottom = 0);
 
 void four_point_stencil(std::vector<std::vector<double>>& temperature);
 
@@ -22,6 +26,8 @@ void write_results(const std::vector<double> x_values, const std::vector<double>
     const std::vector<std::vector<double>>& temperature, 
     const std::vector<std::vector<double>>& reference_temperature = {{}},std::string filename = "results.csv");
 
+
+/*****************************************************************************/
 int main()
 {
 
@@ -46,9 +52,6 @@ int main()
 
     std::cout<<"Meshing done....."<<std::endl;
 
-    set_boundary_conditions(temperature);
-
-    std::cout<<"Boundary Conditions imposed....."<<std::endl;
     //print_grid(temperature);
 
     std::cout<<"How do you want to solve the problem?"<<std::endl;
@@ -59,11 +62,28 @@ int main()
     int input;
     std::cin>>input;
     if(input == 1){
+        std::cout<<"Please specify constant temperature boundary conditiont the four boundaries "
+                <<"in the following order: \n Left\n Right \n Top \n Bottom \n";
+
+        double left, right, top, bottom;
+
+        std::cin>>left>>right>>top>>bottom;
+
+        set_boundary_conditions(temperature, left, right, top, bottom);
+
         four_point_stencil(temperature);
         write_results(x_values,y_values,temperature);
     }
 
     else if(input == 2){
+        std::cout<<"Please specify constant temperature boundary conditiont the four boundaries "
+                <<"in the following order: \n Left\n Right \n Top \n Bottom \n";
+
+        double left, right, top, bottom;
+
+        std::cin>>left>>right>>top>>bottom;
+
+        set_boundary_conditions(temperature, left, right, top, bottom);
         eight_point_stencil(temperature);
         write_results(x_values,y_values,temperature);
     }
@@ -83,25 +103,27 @@ int main()
 }
 
 
-void set_boundary_conditions(std::vector<std::vector<double>> &temperature)
+void set_boundary_conditions(std::vector<std::vector<double>> &temperature, double left, double right,
+                             double top, double bottom)
 {
     int nx=temperature.size();
     int ny=temperature[0].size();
 
-    //std::cout<<H<<std::endl;
-    //std::cout<<L<<std::endl;
-
+    //Imposing on the left and right side
     for (auto i=0;i<nx;i++){        
-        temperature[i][0]=0;
-        temperature[i][ny-1]=1;
+        temperature[i][0]=left;
+        temperature[i][ny-1]= right;
     }
-    //print_grid(temperature);
-    //std::cout<<std::endl;
 
-/*     for (auto j=0;j<L;j++){
-        temperature[0][j]=0;
-        temperature[H-1][j]=0;
-    } */
+    //Imposing on the top and bottom side
+    for (auto i=1;i<ny-1;i++){        
+        temperature[0][i]=top;
+        temperature[nx-1][i]= bottom;
+    }
+
+    std::cout<<"Boundary Conditions imposed....."<<std::endl;
+    //print_grid(temperature);
+
 }
 
 void print_grid(const std::vector<std::vector<double>> &temperature)
@@ -177,11 +199,9 @@ bool unit_test(char choice){
     set_boundary_conditions(temperature);
 
     if(choice == 'a' || choice == 'A'){
-        std::cout<<"choice selected: a"<<std::endl;
         four_point_stencil(temperature);
     }
     else if(choice == 'b' || choice == 'B'){
-        std::cout<<"choice selected: b "<<std::endl;
         eight_point_stencil(temperature);
     }
     else{
