@@ -4,8 +4,16 @@
 In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T`$ =0. 
 
 # General Comments
-- No external library required 
-- Python 3 required for visualization
+- No external C++ library required 
+- Matplotlib module in Python 3 required for visualization of the computed results. 
+
+# Installing Python 3 and Matplotlib in Linux 
+
+`sudo apt update`
+
+`sudo apt install python3.8` 
+
+`pip install matplotlib`
 
 # Problem Formulation
 - Consider a square plate with length: L=1m and height: H=1m.
@@ -27,7 +35,36 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 ![8 point point stencil](/images/8pt_stencil.jpg)
 # Unit Test:
 This compares the results of a particular bounudary condition (as shown below) with the results of the analytical solution imposed to those same boundary conditions.
+
 ![Test Configuration at Steady state](/images/test_config.png)
+
+## Analytical solution
+![General_Sol](/images/gen_solution.png)
+
+- For L=1, H=1 the equation simplifies into:
+
+![specific_Sol](/images/Spl_solution.png)
+
+
+
+## Result of Unit Test (Temperature Distribution) 
+
+<img src=/images/results.png width="500" height="400" />
+
+# Code Implementation for Sprint 1
+
+1. The 2D Mesh is automatically created and the user is prompted to make a choice among:
+-  Four point stencil (Press 1)
+-  Eight Point stencil (Press 2)
+-  Run a unit Test (Press 3)
+
+2. If the user chooses either 1 or 2, the solution strategy is selected accordingly. The nodal coordinates are recorded in an excel file: "results.csv" along with their corrsponding temperature values. 
+
+- If the user decides to run a unit test, again there is a prompt to select either the 4 point or the 8 point stencil. The results of the unit test using a specific solution strategy and the analytical result are recorded in the excel file "reference_results.csv". Apart from the nodal coordniates and the corresponding temperature values, the solution of the analytical calculation and the absolute error is also recorded so that the user can gain confidence while using the algorithm. 
+
+3. Visualization of the temperature distribution at the steady state is implemented using matplotlib module in Python.  
+
+
 
 
 
