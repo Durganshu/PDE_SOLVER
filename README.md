@@ -19,7 +19,9 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 # Solution Strategies:
 ## Four Point Stencil 
 -Calculates the temperature value at a given node by averaging the temperature of its 4 nearest neighbours.
-![5 point stencil](/images/5pt_stencil.png)
+
+<img src=/images/5pt_stencil.png width="500" height="500" />
+
 ## Eight Point Stencil
 -Calculates the temperature value at a given node by averaging the temperature of its 8 nearest neighbours.
 ![8 point point stencil](/images/8pt_stencil.jpg)
