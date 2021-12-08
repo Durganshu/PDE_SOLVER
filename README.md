@@ -1,7 +1,7 @@
 # PDE Solver_ Group DH
 
 # Project Overview
-In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving Laplacian (Temperature)=0. 
+In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T`$ =0. 
 
 # General Comments
 - No external library required 
