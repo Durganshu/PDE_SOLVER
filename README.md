@@ -86,7 +86,7 @@ This compares the results of a particular bounudary condition (as shown below) w
 
 # ...and the result files: 
 
-**First few lines:**
+**First few lines of results.csv:**
 
 ![first_few_lines](/images/results_csv.png)
 
@@ -94,7 +94,7 @@ This compares the results of a particular bounudary condition (as shown below) w
 
 ![somewhere](/images/results_csv_1.png)
 
-**First few lines:**
+**First few lines of unit_test_results.csv:**
 
 ![first_few_lines](/images/unit_test_csv_1.png)
 
