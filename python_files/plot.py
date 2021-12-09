@@ -6,7 +6,7 @@ plt.rcParams["figure.autolayout"] = True
 
 # Enter 'results.csv' for plotting numerical solution
 # Enter 'unit_test_results.csv' for plotting analytical solution
-filename = 'unit_test_results.csv'
+filename = '../results/results.csv'
 data = np.genfromtxt(filename, delimiter=',')
 
 data1 = data[1:,:]

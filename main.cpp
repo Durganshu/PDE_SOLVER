@@ -368,7 +368,8 @@ void write_results(const std::vector<double> x_values, const std::vector<double>
     
     std::cout<<"Writing results....."<<std::endl;
     std::ofstream myfile;
-    myfile.open (filename);
+    std::string file_path = "results/" + filename;
+    myfile.open (file_path);
     int nx=temperature.size();
     int ny=temperature[0].size();
     //std::cout<<"Size of reference solution: "<<reference_temperature[0][0]<<std::endl;
@@ -406,7 +407,7 @@ void write_results(const std::vector<double> x_values, const std::vector<double>
 
     myfile.close();
 
-    std::cout<<"Success. Check "<<filename<<std::endl;
+    std::cout<<"Success. Check "<<file_path<<std::endl;
 
 }
 /************************************************************************************************************/
