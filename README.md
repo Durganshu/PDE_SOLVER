@@ -64,9 +64,8 @@ The directory consists of following sub-directories:
 
 3. [**python_files:**](/python_files/) This folder contains the python files that can be used for plotting and viewing the results.
 
-Besides that, there is a main.cpp and README.md file. main.cpp is the source code and is meant to be compiled and executed. 
+Besides that, there is a main.cpp and README.md file. [main.cpp](/main.cpp) is the source code and is meant to be compiled and executed. 
 After running the code, an executable is generated as per the choice of the user. 
-
 
 
 # Code Implementation for Sprint 1
