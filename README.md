@@ -55,6 +55,20 @@ This compares the results of a particular bounudary condition (as shown below) w
 
 <img src=/images/results.png width="500" height="400" />
 
+# Directory structure of files
+
+The directory consists of following sub-directories:
+1. [**images:**](/images/) This folder consists of images for upload on README.module
+
+2. [**results:**](/results/) This folder contains the generated output files after executing the code.
+
+3. [**python_files:**](/python_files/) This folder contains the python files that can be used for plotting and viewing the results.
+
+Besides that, there is a main.cpp and README.md file. main.cpp is the source code and is meant to be compiled and executed. 
+After running the code, an executable is generated as per the choice of the user. 
+
+
+
 # Code Implementation for Sprint 1
 
 1. The 2D Mesh is automatically created and the user is prompted to make a choice among:
