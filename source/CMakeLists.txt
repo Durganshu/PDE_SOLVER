@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 3.1)
 # name of the project.
 PROJECT (PDE_SOLVER)
 
-#LINK_DIRECTORIES(~/install/lib/)
+#LINK_DIRECTORIES(usr/include/lib/)
 
 #SET(CMAKE_CXX_FLAGS " -fopenmp -O3")
 
@@ -12,9 +12,8 @@ SET( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PDE_CMAKE_DIR}")
 
 # the sources that need to be compiled for the required executable.
 SET (sources
-    boundary_conditions.cpp
     iterative_schemes.cpp
-    miscellaneous.cpp
+    pde_solver.cpp
     main.cpp
     )
 
@@ -65,6 +64,4 @@ find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 # Add the executable to be generated.
 ADD_EXECUTABLE ( ${target_name} ${sources} )
 
-TARGET_LINK_LIBRARIES (${target_name} Eigen3::Eigen)
-#TARGET_LINK_LIBRARIES(${target_name} ${EIGEN_DIR})
-
+TARGET_LINK_LIBRARIES (${target_name} Eigen3::Eigen jsoncpp)

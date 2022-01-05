@@ -1,4 +1,0 @@
-#ifndef MISCELLANEOUS_H
-#define MISCELLANEOUS_H
-
-#endif

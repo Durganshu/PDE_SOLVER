@@ -1,4 +1,0 @@
-#ifndef BOUNDARY_CONDITIONS_H
-#define BOUNDARY_CONDITIONS_H
-
-#endif
