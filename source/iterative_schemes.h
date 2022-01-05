@@ -3,7 +3,7 @@
 
 #include "pde_solver.h"
 
-class iterativeSchemes{
+class iterativeSchemes : pdeSolver{
     
     public:
         iterativeSchemes();
