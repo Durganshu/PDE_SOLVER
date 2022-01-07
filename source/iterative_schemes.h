@@ -3,18 +3,16 @@
 
 #include "pde_solver.h"
 
-class iterativeSchemes : pdeSolver{
+class iterativeSchemes : public pdeSolver{
     
     public:
-        iterativeSchemes();
+        iterativeSchemes(const Json::Value);
 
         void four_point_stencil();
 
         void eight_point_stencil();
 
         void gauss_seidel();
-
-    protected:
         
 };
 

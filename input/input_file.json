@@ -1,10 +1,12 @@
 {
     "version" : 1.0,
     "mesh" : {
-      "file_name" : "../input/mesh.csv",
-      "scale_factor" : 1
+      "file_name" : "../input/mesh1.csv",
+      "scale_factor" : 1,
+      "nx" : 101,
+      "ny" : 101
     },
-    "numerical_scheme" : "Five_point_stencil",
+    "numerical_scheme" : "Four_point_stencil",
 
     "boundary_conditions" : {
         "left": 1,

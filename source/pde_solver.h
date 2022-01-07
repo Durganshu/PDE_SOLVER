@@ -5,17 +5,21 @@
 #include <jsoncpp/json/json.h>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <Eigen/Dense>
+
+using std::vector;
+using std::string;
+using std::endl;
+using std::cout;
+using std::fstream;
+using std::stringstream;
 
 class pdeSolver{
     public:
-        pdeSolver();
+        pdeSolver(const Json::Value);
 
-        void set_inputs(const Json::Reader jroot);
-        
-        void set_mesh();
-        
-        void set_temperature_values();
+        void read_mesh();
         
         void set_boundary_conditions();
         
@@ -23,20 +27,20 @@ class pdeSolver{
         
         void get_results();
 
-        void write_results(
-        const std::vector<double> x_values, const std::vector<double> y_values,
-        const std::vector<std::vector<double>> &temperature,
-        const std::vector<std::vector<double>> &reference_temperature = {{}},
-        std::string filename = "results.csv");
+        void write_results();
 
         bool unit_test(char choice);
     
         void print_grid();
 
+        const string m_iterative_scheme;
+
     protected:
-        std::vector<double> m_x_polar, m_y_polar, m_x_cartesian, m_y_cartesian;
-        
-        std::vector<std::vector<double>> m_temperature_values, m_mesh;
+        const int m_nx, m_ny;
+        const double m_left, m_right, m_bottom, m_top, m_source;
+        vector<double> m_x_polar, m_y_polar, m_x_cartesian, m_y_cartesian;
+        const string m_mesh_file;
+        vector<vector<double>> m_temperature_values, m_mesh;
 
     
 };
