@@ -54,3 +54,7 @@ void iterativeSchemes::eight_point_stencil(){
 void iterativeSchemes::gauss_seidel(){
 
 }
+
+bool unit_test(char choice){
+  
+}

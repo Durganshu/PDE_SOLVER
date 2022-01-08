@@ -13,6 +13,8 @@ class iterativeSchemes : public pdeSolver{
         void eight_point_stencil();
 
         void gauss_seidel();
+
+        bool unit_test(char choice);
         
 };
 

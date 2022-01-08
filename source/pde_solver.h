@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <Eigen/Dense>
+#include "write_plot.h"
 
 using std::vector;
 using std::string;
@@ -23,13 +24,11 @@ class pdeSolver{
         
         void set_boundary_conditions();
         
-        void set_results();
-        
-        void get_results();
+        vector<vector<double>> get_results();
 
         void write_results();
 
-        bool unit_test(char choice);
+        void plot_results();
     
         void print_grid();
 

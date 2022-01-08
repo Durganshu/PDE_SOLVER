@@ -73,19 +73,35 @@ void pdeSolver::set_boundary_conditions(){
 
 }
         
-void get_results(){}
+vector<vector<double>> pdeSolver::get_results(){
+    return m_temperature_values;
+}
 
-void write_results(){}
+void pdeSolver::write_results(){
+    writePlot* handle = new writePlot();
+    if (m_iterative_scheme == "Four_point_stencil" || 
+        m_iterative_scheme == "Eight_point_stencil" ||
+        m_iterative_scheme == "Gauss_seidel")
+        handle->write_csv(m_x_cartesian,m_y_cartesian,m_temperature_values);
 
-bool unit_test(char choice){}
+    //else if(m_iterative_scheme == "Unit_test")
+        //handle->write_csv(m_x_cartesian,m_y_cartesian,m_temperature_values,
+        //reference_temperature, "unit_test_results.csv");
+
+}
+
+void pdeSolver::plot_results(){
+     writePlot* handle = new writePlot();
+     handle->plot();
+}
     
 void pdeSolver::print_grid(){
     for (size_t i = 0; i < m_nx; i++) {
         for (int j = 0; j < m_ny; j++) {
             std::cout << m_temperature_values[i][j] << " ";
+        }
+        std::cout << "\n";
     }
-    std::cout << "\n";
-  }
 
 
 }

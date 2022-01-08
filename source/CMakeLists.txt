@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED (VERSION 3.1)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.4)
 
 # name of the project.
 PROJECT (PDE_SOLVER)
@@ -14,6 +14,7 @@ SET( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PDE_CMAKE_DIR}")
 SET (sources
     iterative_schemes.cpp
     pde_solver.cpp
+    write_plot.cpp
     main.cpp
     )
 
@@ -26,7 +27,7 @@ SET( CMAKE_CXX_COMPILER "g++" )
 # general flags for the compiler.
 #SET( CMAKE_CXX_FLAGS " -Wall -pedantic" )
 SET( CMAKE_CXX_FLAGS " -Wall -fopenmp -DZN_LINUX" )
-#-DZN_LICENSE -DLICENSE_T -DLICENSE_N" )
+set(CMAKE_CXX_STANDARD 17)
 
 # flags for the compiler in debug mode.
 #SET( CMAKE_CXX_FLAGS_DEBUG " -pg -g -Weffc++" )
@@ -58,10 +59,11 @@ ENDIF()
 #set(EIGEN_DIR "/home/durganshu/pde-solver_-group-dh/source/Eigen/")
 #INCLUDE_DIRECTORIES( ${EIGEN_DIR} )
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(pybind11 REQUIRED)
 
 #LINK_DIRECTORIES ( ~/install/lib )
 # set the include paths
 # Add the executable to be generated.
 ADD_EXECUTABLE ( ${target_name} ${sources} )
 
-TARGET_LINK_LIBRARIES (${target_name} Eigen3::Eigen jsoncpp)
+TARGET_LINK_LIBRARIES (${target_name} Eigen3::Eigen jsoncpp pybind11::embed)
