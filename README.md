@@ -33,11 +33,15 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 # Installing pybind11 library in Ubuntu Linux
 `sudo apt-get install python-pybind11`
 
-If the above installation doesn't works:
+If the above installation doesn't works, follow these steps in succession:
 `cd /tmp`
+
 `git clone https://github.com/pybind/pybind11`
+
 `mkdir pybind11/build && cd pybind11/build`
+
 `cmake .. -DPYBIND11_TEST=OFF`
+
 `sudo make install`
 
 # Problem Formulation
@@ -85,13 +89,41 @@ This compares the results of a particular bounudary condition (as shown below) w
 The directory consists of following sub-directories:
 1. [**images:**](/images/) This folder consists of images for upload on README.module
 
-//2. [**results:**](/results/) This folder contains the generated output files after executing the code.
+2. [**results:**](/results/) This folder contains the generated output files after executing the code.
 
-3. [**source:**](/source/) This folder contains the source files, header files and the CMakeLists.txt file, required for making and building the     applications.
+3. [**source:**](/source/) This folder contains the source files, header files and the [**CMakeLists.txt**](/source/CMakeLists.txt) file, required for making and building the applications.
 
-Besides that, there is a main.cpp and README.md file. [**main.cpp**](/main.cpp) is the source code and is meant to be compiled and executed. 
-After running the code, an executable is generated as per the choice of the user. 
+4. [**input:**](/input/) This folder contains the input mesh and input json file. User needs to modify only these files in order to get the results.
 
+# Format of Input JSON file:
+The input file is called [**input_file.json**](/input/input_file.json). JSON files are a very easy and convenient way of storing the information. The file consists of "key:value" pairs and the user is required to insert the corresponding values. The keys are imported as variables in the code and their values are assigned accordinly. Following variables are to be taken as inputs:
+
+"mesh" : All the inputs related to the mesh are to be supplied in this key.
+    {
+      "file_name" : The location of the .csv file (with its name).
+      "nx" : Number of nodes in x direction.
+      "ny" : Number of nodes in the y direction.
+    }
+"numerical_scheme" : The name of the iterative_method to be used. It can also contain "Unit Test".
+
+"boundary_conditions" : All the inputs related to the boundary_conditions are to be supplied in this key.
+    {
+        "left": The boundary condition at the left boundary.
+        "right": The boundary condition at the right boundary.
+        "top": The boundary condition at the top boundary.
+        "bottom": The boundary condition at the bottom boundary.
+        "source" : The value should be 0, if no source or 1 if the source term has to be added.
+    }
+    
+  
+"results" : All the inputs related to the output file are to be supplied in this key
+    {
+      "file_name" : Name of the file.
+      "file_typye" : Format of the result file.
+    }-
+-
+-
+-
 
 # Code Implementation for Sprint 1
 
