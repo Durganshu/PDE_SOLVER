@@ -7,6 +7,14 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 - No external C++ library required 
 - Matplotlib and NumPy modules in python3 required for visualization of the computed results. 
 
+# Updates in Sprint 2
+- The whole package is now Object oriented with different functionalities implemented as different classes.
+- The building and compilation is done using cmake and make. The building can be done in Debug as well as Release mode.
+- Input is supplied through a JSON file.
+- Mesh can be imported from an external directory as *.csv (Comma-separated Values) file.
+- Gauss-Seidel solver has been added for added functionality.
+- Python Matplotlib has been added in the C++ code using the pybind11 module.
+
 # Installing Python3, NumPy and Matplotlib in Ubuntu Linux 
 
 `sudo apt update`
@@ -18,6 +26,19 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 `pip install numpy`
 
 `pip install matplotlib`
+
+# Installing jsoncpp library in Ubuntu Linux
+`sudo apt-get install libjsoncpp-dev`
+
+# Installing pybind11 library in Ubuntu Linux
+`sudo apt-get install python-pybind11`
+
+If the above installation doesn't works:
+`cd /tmp`
+`git clone https://github.com/pybind/pybind11`
+`mkdir pybind11/build && cd pybind11/build`
+`cmake .. -DPYBIND11_TEST=OFF`
+`sudo make install`
 
 # Problem Formulation
 - Consider a square plate with length: L=1m and height: H=1m.
@@ -37,6 +58,10 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 ## Eight Point Stencil
 -Calculates the temperature value at a given node by averaging the temperature of its 8 nearest neighbours.
 ![8 point point stencil](/images/8pt_stencil.jpg)
+
+## Gauss-Seidel Algorithm
+
+
 # Unit Test:
 This compares the results of a particular bounudary condition (as shown below) with the results of the analytical solution imposed to those same boundary conditions.
 
@@ -60,9 +85,9 @@ This compares the results of a particular bounudary condition (as shown below) w
 The directory consists of following sub-directories:
 1. [**images:**](/images/) This folder consists of images for upload on README.module
 
-2. [**results:**](/results/) This folder contains the generated output files after executing the code.
+//2. [**results:**](/results/) This folder contains the generated output files after executing the code.
 
-3. [**python_files:**](/python_files/) This folder contains the python files that can be used for plotting and viewing the results.
+3. [**source:**](/source/) This folder contains the source files, header files and the CMakeLists.txt file, required for making and building the     applications.
 
 Besides that, there is a main.cpp and README.md file. [**main.cpp**](/main.cpp) is the source code and is meant to be compiled and executed. 
 After running the code, an executable is generated as per the choice of the user. 
