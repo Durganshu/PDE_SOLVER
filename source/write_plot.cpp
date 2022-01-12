@@ -72,14 +72,14 @@ void writePlot::plot(){
 
     data1 = data[1:,:]
 
-    L = 101
-    H = 101
+    nx = 101
+    ny = 101
 
-    row_values = range(0,101)
+    row_values = range(0,nx)
 
     col = 0
     itr = 0
-    data2 = np.zeros((101, 101))
+    data2 = np.zeros((nx, ny))
 
 
     column = 2
@@ -92,11 +92,27 @@ void writePlot::plot(){
             data2[row,col] = data1[itr,column]
             itr = itr + 1
         col = col+1
-        if(col == 101):
+        if(col == ny):
             break
-
     
-    plt.imshow(np.transpose(data2),cmap = cm.jet, extent=[0, 1, 0, 1])
+    
+    #x = np.linspace(0,1,nx)
+    #y = np.linspace(0,1,ny)
+    #r = np.sqrt(x**2 + y**2)
+    #theta = np.arctan2(y,x)
+    #print(theta)
+    #print(np.shape(r))
+    #fig = plt.figure()
+    #ax = fig.add_subplot(111, polar = 'True')
+    #ax = fig.add_subplot(111)
+    plt.imshow(np.transpose(data2),cmap = cm.jet, extent=[-0.5, 0.5, -0.5, 0.5])
+    #ax.imshow(np.transpose(data2),cmap = cm.jet)
+    #pc = ax.pcolormesh(theta, r, np.transpose(data2),cmap = cm.jet)
+    #pc = ax.pcolormesh(np.transpose(data2),cmap = cm.jet)
+    #fig.colorbar(pc)
+    #ax.set_theta_zero_location('N')
+    #ax.set_xticklabels(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'], color='red')
+    #ax.set_rlim(0, 1)
     plt.colorbar()
     plt.show()
 
