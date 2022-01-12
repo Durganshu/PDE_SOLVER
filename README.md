@@ -99,31 +99,47 @@ The directory consists of following sub-directories:
 The input file is called [**input_file.json**](/input/input_file.json). JSON files are a very easy and convenient way of storing the information. The file consists of "key:value" pairs and the user is required to insert the corresponding values. The keys are imported as variables in the code and their values are assigned accordinly. Following variables are to be taken as inputs:
 
 "mesh" : All the inputs related to the mesh are to be supplied in this key.
+
     {
+
       "file_name" : The location of the .csv file (with its name).
+
       "nx" : Number of nodes in x direction.
+
       "ny" : Number of nodes in the y direction.
+
     }
+
 "numerical_scheme" : The name of the iterative_method to be used. It can also contain "Unit Test".
 
+
 "boundary_conditions" : All the inputs related to the boundary_conditions are to be supplied in this key.
+
     {
+
         "left": The boundary condition at the left boundary.
+
         "right": The boundary condition at the right boundary.
+
         "top": The boundary condition at the top boundary.
+
         "bottom": The boundary condition at the bottom boundary.
+
         "source" : The value should be 0, if no source or 1 if the source term has to be added.
+
     }
     
   
 "results" : All the inputs related to the output file are to be supplied in this key
+
     {
+
       "file_name" : Name of the file.
+
       "file_typye" : Format of the result file.
+
     }-
--
--
--
+
 
 # Code Implementation for Sprint 1
 
