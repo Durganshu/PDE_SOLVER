@@ -149,13 +149,13 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
 2. Then follow these steps to build and execute the code:
 
-`mkdir build && cd build`
+  `mkdir build && cd build`
 
-`cmake ../source/ -DCMAKE_BUILD_TYPE=Release` or `cmake ../source/ -DCMAKE_BUILD_TYPE=Debug`*
+  *`cmake ../source/ -DCMAKE_BUILD_TYPE=Release` or `cmake ../source/ -DCMAKE_BUILD_TYPE=Debug`
 
-`make`
+  `make`
 
-`./pdesolver ../input/input_file.json` or `./pdesolver_debug ../input/input_file.json`**
+  **`./pdesolver ../input/input_file.json` or `./pdesolver_debug ../input/input_file.json`
 
 *The package can be built in the Release mode or the Debug mode. The default build type is Debug mode. Apart from the above two possibilities, following command can also be used, that'll build in the Debug mode: `cmake ../source`
 
