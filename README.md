@@ -136,27 +136,36 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
       "file_name" : Name of the file.
 
-      "file_typye" : Format of the result file.
+      "file_type" : Format of the result file.
 
     }-
 
+"Add a snapshot of the input file"
 
-# Code Implementation for Sprint 1
+# Code Implementation for Sprint 2
 
-1. The 2D Mesh is automatically created and the user is prompted to make a choice among:
--  Four point stencil (Press 1)
--  Eight Point stencil (Press 2)
--  Run a unit Test (Press 3)
+1. Specify user inputs in the JSON file as specified above.
 
-2. If the user chooses either 1 or 2, the solution strategy is selected accordingly. The nodal coordinates are recorded in an excel file: "results.csv" along with their corrsponding temperature values. 
+2. Then follow these steps to build and execute the code:
 
-- If the user decides to run a unit test, again there is a prompt to select either the 4 point or the 8 point stencil. The results of the unit test using a specific solution strategy and the analytical result are recorded in the excel file "reference_results.csv". Apart from the nodal coordniates and the corresponding temperature values, the solution of the analytical calculation and the absolute error is also recorded so that the user can gain confidence while using the algorithm. 
+`mkdir build && cd build`
 
-3. Visualization of the temperature distribution at the steady state is implemented using matplotlib module in Python.  
+`cmake ../source/ -DCMAKE_BUILD_TYPE=Release` or `cmake ../source/ -DCMAKE_BUILD_TYPE=Debug`*
+
+`make`
+
+`./pdesolver ../input/input_file.json` or `./pdesolver_debug ../input/input_file.json`**
+
+*The package can be built in the Release mode or the Debug mode. The default build type is Debug mode. Apart from the above two possibilities, following command can also be used, that'll build in the Debug mode: `cmake ../source`
+
+**The name of executable for the Debug mode is pdesolver_debug and for the Release mode is pdesolver. The input file needs to be supplied at the time of runnning the application.
+
+3. The outputs will be generated in the [**results**](/results) directory. 
+
 
 # Following snippets from the console display show the execution:
 
-![Compile_and_run_the_executable](/images/compile_and_ru.png)
+![Initial_directory_structure](/images/compile_and_ru.png)
 
 **For first two cases**
 
