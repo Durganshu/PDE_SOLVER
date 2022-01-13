@@ -6,7 +6,7 @@ pdeSolver::pdeSolver(const Json::Value jroot) : m_nx(jroot["mesh"]["nx"].asInt()
     ["right"].asDouble()),m_top(jroot["boundary_conditions"]
     ["top"].asDouble()),m_bottom(jroot["boundary_conditions"]
     ["bottom"].asDouble()),m_source(jroot["boundary_conditions"]
-    ["source"].asDouble()),
+    ["source"].asInt()),
     m_iterative_scheme(jroot["numerical_scheme"].asString()),
     m_mesh_file(jroot["mesh"]["file_name"].asString()){
 
@@ -57,6 +57,9 @@ void pdeSolver::read_mesh(){
 void pdeSolver::set_boundary_conditions(){
 
   // Imposing on the left and right side
+
+  cout<<"m_nx: "<<m_nx<<endl;
+  cout<<"m_nx: "<<m_ny<<endl;
     for (size_t i = 0; i < m_nx; i++) {
         m_temperature_values[i][0] = m_left;
         m_temperature_values[i][m_ny - 1] = m_right;
@@ -81,7 +84,7 @@ void pdeSolver::write_results(){
     writePlot* handle = new writePlot();
     if (m_iterative_scheme == "Four_point_stencil" || 
         m_iterative_scheme == "Eight_point_stencil" ||
-        m_iterative_scheme == "Gauss_seidel")
+        m_iterative_scheme == "Gauss_Seidel")
         handle->write_csv(m_x_cartesian,m_y_cartesian,m_temperature_values);
 
     //else if(m_iterative_scheme == "Unit_test")

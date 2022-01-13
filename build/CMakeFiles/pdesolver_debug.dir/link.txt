@@ -1,0 +1,1 @@
+g++  -Wall -fopenmp -DZN_LINUX  -pg -g  CMakeFiles/pdesolver_debug.dir/iterative_schemes.cpp.o CMakeFiles/pdesolver_debug.dir/pde_solver.cpp.o CMakeFiles/pdesolver_debug.dir/write_plot.cpp.o CMakeFiles/pdesolver_debug.dir/main.cpp.o -o pdesolver_debug  -ljsoncpp /usr/lib/x86_64-linux-gnu/libpython3.9.so 

@@ -21,6 +21,8 @@ int main(int argc, char **argv){
         ITR->four_point_stencil();
     else if(ITR->m_iterative_scheme == "Eight_point_stencil")
         ITR->eight_point_stencil();
+    else if(ITR->m_iterative_scheme == "Gauss_Seidel")
+        ITR->gauss_seidel();
 
     ITR->write_results();
     ITR->plot_results();

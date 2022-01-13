@@ -1,19 +1,19 @@
 {
     "version" : 1.0,
     "mesh" : {
-      "file_name" : "../input/mesh1.csv",
+      "file_name" : "../input/mesh2.csv",
       "scale_factor" : 1,
-      "nx" : 101,
-      "ny" : 101
+      "nx" : 5,
+      "ny" : 5
     },
-    "numerical_scheme" : "Four_point_stencil",
+    "numerical_scheme" : "Gauss_Seidel",
 
     "boundary_conditions" : {
-        "left": 1,
-        "right": 1,
-        "top": 1,
-        "bottom": 1,
-        "source" : 0
+        "left": 10,
+        "right": 10,
+        "top": 10,
+        "bottom":10,
+        "source" : 1
     },
     
   

@@ -52,6 +52,7 @@ void writePlot::write_csv(const vector<double> x_values,
 
 }
 
+
 void writePlot::plot(){
     // Start the Python interpreter
     py::scoped_interpreter guard{};
@@ -72,14 +73,14 @@ void writePlot::plot(){
 
     data1 = data[1:,:]
 
-    L = 101
-    H = 101
+    L = 5
+    H = 5
 
-    row_values = range(0,101)
+    row_values = range(0,L)
 
     col = 0
     itr = 0
-    data2 = np.zeros((101, 101))
+    data2 = np.zeros((L, H))
 
 
     column = 2
@@ -92,11 +93,11 @@ void writePlot::plot(){
             data2[row,col] = data1[itr,column]
             itr = itr + 1
         col = col+1
-        if(col == 101):
+        if(col == L):
             break
 
-    
-    plt.imshow(np.transpose(data2),cmap = cm.jet, extent=[0, 1, 0, 1])
+    print(data2)
+    plt.imshow(np.transpose(data2),cmap = cm.jet)
     plt.colorbar()
     plt.show()
 
