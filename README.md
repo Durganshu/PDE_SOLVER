@@ -157,11 +157,11 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
   **`./pdesolver ../input/input_file.json` or `./pdesolver_debug ../input/input_file.json`
 
-*The package can be built in the Release mode or the Debug mode. The default build type is Debug mode. Apart from the above two possibilities, following command can also be used, that'll build in the Debug mode: `cmake ../source`
+*The package can be built in the Release mode or the Debug mode. The default build type is Debug mode. Apart from the above two possibilities, following command can also be used, that'll build in the Debug mode: `cmake ../source/`
 
 **The name of executable for the Debug mode is pdesolver_debug and for the Release mode is pdesolver. The input file needs to be supplied at the time of runnning the application.
 
-3. The outputs will be generated in the [**results**](/results) directory. 
+3. The outputs will be generated in the [**results**](/results/) directory. 
 
 
 # Following snippets from the console display show the execution:
