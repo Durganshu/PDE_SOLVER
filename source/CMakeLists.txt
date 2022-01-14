@@ -64,4 +64,4 @@ find_package(pybind11 REQUIRED)
 # Add the executable to be generated.
 ADD_EXECUTABLE ( ${target_name} ${sources} )
 
-TARGET_LINK_LIBRARIES (${target_name} Eigen3::Eigen jsoncpp pybind11::embed)
+TARGET_LINK_LIBRARIES (${target_name} jsoncpp pybind11::embed)

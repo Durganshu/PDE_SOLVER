@@ -1,68 +1,73 @@
 #include "write_plot.h"
 
+void writePlot::write_csv(const vector<double> x_values,
+                          const vector<double> y_values,
+                          const vector<vector<double>> &temperature,
+                          const vector<vector<double>> &reference_temperature) {
 
-void writePlot::write_csv(const vector<double> x_values, 
-    const vector<double> y_values,
-    const vector<vector<double>>& temperature, 
-    const vector<vector<double>>& reference_temperature){ 
-    
-    cout<<"Writing results....."<<endl;
-    ofstream myfile;
-    string file_path = "../results/results.csv";
-    myfile.open (file_path);
-    int nx=temperature.size();
-    int ny=temperature[0].size();
-    //cout<<"Size of reference solution: "<<reference_temperature[0][0]<<endl;
-    if(reference_temperature.size() > 1){
-        myfile<<"X"<<","<<"Y"<<","<<"Numerical Solution (in K)"<<","<<
-            "Analytical Solution (in K)"<<","<<"Absolute Error"<<endl;
-        for (int i=0;i<nx;i++){
-            for (int j=0; j<ny; j++){
-                double error = abs(reference_temperature[i][j] - temperature[i][j]);
-                myfile<<x_values[i]<<","<<y_values[j]<<","<<temperature[i][j]<<","
-                <<reference_temperature[i][j]<<","<<abs(reference_temperature[i][j] - temperature[i][j])    
-                <<"\n";
-                //cout<<temperature[i][j]<<",";
-            }
-            //cout<<"\n";
-        }
-        
-
+  cout << "Writing results....." << endl;
+  ofstream myfile;
+  string file_path = "../results/results.csv";
+  myfile.open(file_path);
+  int nx = temperature.size();
+  int ny = temperature[0].size();
+  // cout<<"Size of reference solution: "<<reference_temperature[0][0]<<endl;
+  if (reference_temperature.size() > 1) {
+    myfile << "X"
+           << ","
+           << "Y"
+           << ","
+           << "Numerical Solution (in K)"
+           << ","
+           << "Analytical Solution (in K)"
+           << ","
+           << "Absolute Error" << endl;
+    for (int i = 0; i < nx; i++) {
+      for (int j = 0; j < ny; j++) {
+        double error = abs(reference_temperature[i][j] - temperature[i][j]);
+        myfile << x_values[i] << "," << y_values[j] << "," << temperature[i][j]
+               << "," << reference_temperature[i][j] << ","
+               << abs(reference_temperature[i][j] - temperature[i][j]) << "\n";
+        // cout<<temperature[i][j]<<",";
+      }
+      // cout<<"\n";
     }
 
-    else{
-        //cout<<"Came here!"<<endl;
-        myfile<<"X"<<","<<"Y"<<","<<"Numerical Solution (in K)"<<endl;
-        
-        for (int i=0;i<nx;i++){
-            for (int j=0; j<ny; j++){
-                myfile<<x_values[i]<<","<<y_values[j]<<","<<temperature[i][j]<<"\n";
-                //cout<<temperature[i][j]<<",";
-            }
-            //cout<<"\n";
-        }
+  }
+
+  else {
+    // cout<<"Came here!"<<endl;
+    myfile << "X"
+           << ","
+           << "Y"
+           << ","
+           << "Numerical Solution (in K)" << endl;
+
+    for (int i = 0; i < nx; i++) {
+      for (int j = 0; j < ny; j++) {
+        myfile << x_values[i] << "," << y_values[j] << "," << temperature[i][j]
+               << "\n";
+        // cout<<temperature[i][j]<<",";
+      }
+      // cout<<"\n";
     }
-    
-    
+  }
 
-    myfile.close();
+  myfile.close();
 
-    cout<<"Success. Check "<<file_path<<endl;
-
+  cout << "Success. Check " << file_path << endl;
 }
 
-void writePlot::plot(const int& nx, const int& ny, const string iterative_method){
-    // Start the Python interpreter
-    py::scoped_interpreter guard{};
-    using namespace py::literals;
+void writePlot::plot(const int &nx, const int &ny,
+                     const string iterative_method) {
+  // Start the Python interpreter
+  py::scoped_interpreter guard{};
+  using namespace py::literals;
 
-    py::dict locals = py::dict{
-        "nx"_a = nx,
-        "ny"_a = ny,
-        "iterative_scheme"_a = iterative_method
-    };
+  py::dict locals = py::dict{"nx"_a = nx, "ny"_a = ny,
+                             "iterative_scheme"_a = iterative_method};
 
-    py::exec(R"(
+  py::exec(R"(
     
     import numpy as np
     import matplotlib.pyplot as plt
@@ -124,7 +129,5 @@ void writePlot::plot(const int& nx, const int& ny, const string iterative_method
     plt.savefig("../results/results.png")  #savefig, don't show
     
     )",
-             py::globals(), locals);
- 
-
+           py::globals(), locals);
 }

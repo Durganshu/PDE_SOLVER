@@ -3,21 +3,20 @@
 
 #include "pde_solver.h"
 
-class iterativeSchemes : public pdeSolver{
-    
-    public:
-        iterativeSchemes(const Json::Value);
+class iterativeSchemes : public pdeSolver {
 
-        void four_point_stencil();
+public:
+  iterativeSchemes(const Json::Value);
 
-        void eight_point_stencil();
+  void four_point_stencil();
 
-        std::vector<std::vector<double>> generate_b(double,double);
+  void eight_point_stencil();
 
-        void gauss_seidel();
+  std::vector<std::vector<double>> generate_b(double, double);
 
-        void unit_test();
-        
+  void gauss_seidel();
+
+  void unit_test();
 };
 
 #endif
