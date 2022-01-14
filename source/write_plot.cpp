@@ -73,8 +73,8 @@ void writePlot::plot(){
 
     data1 = data[1:,:]
 
-    L = 5
-    H = 5
+    L = 101
+    H = 101
 
     row_values = range(0,L)
 
