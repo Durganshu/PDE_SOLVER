@@ -72,15 +72,15 @@ If the above installation doesn't work, follow these steps in succession:
 
 ## Gauss-Seidel Algorithm
 -Iterative solver which uses the 4-point stencil to traverse the imported grid and determine the temperature at the internal nodes using the information of the temperature values in the 4 nearest neighbours. Initial temperature guess = 0 at all the interior nodes. 
-
+![Gauss-Siedel Grid Traversal](/images/gs.png)
 
 
 # Unit Test:
-This compares the results of a particular bounudary condition (as shown below) with the results of the analytical solution imposed to those same boundary conditions.
+This compares the results of a particular bounudary condition (as shown below) with the results of the analytical solution imposed to those same boundary conditions. **Note:** Source Term is not considered in the unit test. 
 
 ![Test Configuration at Steady state](/images/test_config.png)
 
-## Analytical solution
+## Analytical solution when there is no source term i.e. S(x,y)=0
 ![General_Sol](/images/gen_solution.png)
 
 - For L=1, H=1 the equation simplifies into:
@@ -89,9 +89,11 @@ This compares the results of a particular bounudary condition (as shown below) w
 
 
 
-## Result of Unit Test (Temperature Distribution) 
-
+## Result of Unit Test (Temperature Distribution)  
 <img src=/images/results.png width="500" height="400" />
+
+## Result of implementing Gauss-Seidel with and without source
+The figure below shows the effect of combined source and boundary terms. It can be clearly observed that the source terms increase the temperature on certain internal node points.
 
 # Directory structure of files
 
@@ -119,11 +121,11 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
     }
 
-"numerical_scheme" : The name of the iterative_method to be used. It can contain following values: "Four_point_stencil", "Eight_point_stencil", "Gauss_Seidel" and "Unit_test".
+**"numerical_scheme"** : The name of the iterative_method to be used. It can contain following values: "Four_point_stencil", "Eight_point_stencil", "Gauss_Seidel" and "Unit_test".
 
-"unit_test_method" : The name of the iterative_method to be used if "Unit_test" is selected. It can contain following values: "Four_point_stencil" or "Eight_point_stencil".
+**"unit_test_method"** : The name of the iterative_method to be used if "Unit_test" is selected. It can contain following values: "Four_point_stencil" or "Eight_point_stencil". Source is not considered here.
 
-"boundary_conditions" : All the inputs related to the boundary_conditions are to be supplied in this key.
+**"boundary_conditions"** : All the inputs related to the boundary_conditions are to be supplied in this key.
 
     {
 
@@ -140,7 +142,7 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
     }
     
   
-"results" : All the inputs related to the output file are to be supplied in this key
+**"results"** : All the inputs related to the output file are to be supplied in this key
 
     {
 
