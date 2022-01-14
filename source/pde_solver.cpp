@@ -19,10 +19,13 @@ pdeSolver::pdeSolver(const Json::Value jroot) : m_nx(jroot["mesh"]["nx"].asInt()
         m_temperature_values[i].resize(m_ny);
         m_reference_temperature[i].resize(m_ny);
     }   
+
+    cout<<"Input file read successfuly."<<endl;
 }
         
 
 void pdeSolver::read_mesh(){
+    cout<<"\nImporting mesh...."<<endl;
 	string line;
     double point;
     int iter=0;
@@ -48,15 +51,19 @@ void pdeSolver::read_mesh(){
             iter+=1;
             
 		}
+        cout<<"Mesh imported successfully."<<endl;
 	}
-	else 
-        cout<<"Could not open the file\n";
+	else{
+        cout<<"Could not open the mesh file. Exiting!";
+        exit(0);
+    }
 }
         
 void pdeSolver::set_boundary_conditions(const double left, 
         const double right , const double top ,
         const double bottom){
 
+    cout<<"\nApplying boundary conditions..."<<endl;
   // Imposing on the left and right side
     for (size_t i = 0; i < m_nx; i++) {
         m_temperature_values[i][0] = left;
@@ -69,7 +76,9 @@ void pdeSolver::set_boundary_conditions(const double left,
         m_temperature_values[m_nx - 1][i] = bottom;
     }
 
-    std::cout << "Boundary Conditions imposed....." << std::endl;
+    cout << "Boundary Conditions imposed." << endl;
+    cout <<" Left (in C): " << left <<"\n Right (in C): " << right
+    <<" \n Top (in C): " << top <<"\n Bottom (in K): " << bottom << endl;
 
 
 }

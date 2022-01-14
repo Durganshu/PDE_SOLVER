@@ -5,16 +5,16 @@
       "nx" : 101,
       "ny" : 101
     },
-    "numerical_scheme" : "Unit_test",
+    "numerical_scheme" : "Gauss_Seidel",
 
     "unit_test_method" : "Four_point_stencil", 
 
     "boundary_conditions" : {
-        "left": 200,
+        "left": 100,
         "right": 100,
-        "top": 200,
+        "top": 100,
         "bottom": 100,
-        "source" : 0
+        "source" : 1
     },
     
   

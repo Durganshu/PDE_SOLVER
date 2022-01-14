@@ -43,6 +43,11 @@ int main(int argc, char **argv){
         ITR->unit_test();
 
     }
+    else{
+        cout<<"Incorrect input for iterative scheme. Exiting!";
+        exit(0);
+    }
+        
         
 
     ITR->write_results();
