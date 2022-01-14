@@ -7,12 +7,12 @@
     },
     "numerical_scheme" : "Unit_test",
 
-    "unit_test_method" : "Four_point_stencil", 
+    "unit_test_method" : "Eight_point_stencil", 
 
     "boundary_conditions" : {
-        "left": 200,
-        "right": 100,
-        "top": 200,
+        "left": 20,
+        "right": 20,
+        "top": 100,
         "bottom": 100,
         "source" : 0
     },

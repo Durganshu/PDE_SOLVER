@@ -83,7 +83,7 @@ void pdeSolver::write_results(){
     writePlot* handle = new writePlot();
     if (m_iterative_scheme == "Four_point_stencil" || 
         m_iterative_scheme == "Eight_point_stencil" ||
-        m_iterative_scheme == "Gauss_seidel")
+        m_iterative_scheme == "Gauss_Seidel")
         handle->write_csv(m_x_cartesian,m_y_cartesian,m_temperature_values);
 
     else if(m_iterative_scheme == "Unit_test")
