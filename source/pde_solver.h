@@ -9,8 +9,6 @@
 #include <Eigen/Dense>
 #include "write_plot.h"
 
-#include<math.h>
-
 using std::vector;
 using std::string;
 using std::endl;

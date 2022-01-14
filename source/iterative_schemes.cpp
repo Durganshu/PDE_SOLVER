@@ -1,7 +1,4 @@
 #include "iterative_schemes.h"
-#include <cmath>
-#include <iostream>
-#include <vector>
 
 iterativeSchemes::iterativeSchemes(const Json::Value jroot) : pdeSolver(jroot) {
 }
@@ -54,8 +51,8 @@ void iterativeSchemes::eight_point_stencil(){
 
 }
 
-std::vector<std::vector<double>> iterativeSchemes::generate_b(double hx,double hy)
-{     const double entries_in_b=(m_nx-2)*(m_ny-2); //Calculating b only for inner nodes of the 2d plate
+std::vector<std::vector<double>> iterativeSchemes::generate_b(double hx,double hy){
+  const double entries_in_b=(m_nx-2)*(m_ny-2); //Calculating b only for inner nodes of the 2d plate
       double initial_guess = 0; 
       const int rows_of_b = m_nx-2;
       const int columns_of_b = m_ny-2;
@@ -119,17 +116,14 @@ std::vector<std::vector<double>> iterativeSchemes::generate_b(double hx,double h
 std::cout<<std::endl;
 return b;
 
+
 }
 
 void iterativeSchemes::gauss_seidel(){
-
-//double residual=1e-4;
+  //double residual=1e-4;
 std::cout<<"\n Gauss Seidel Selected with: "<<std::endl;
 std::cout<<"N_y "<<m_ny<<std::endl;
 std::cout<<"N_x "<<m_nx<<std::endl;
-std::cout<<"qqqq"<<endl;
-std::cout<<"Source:"<<m_source<<std::endl;
-std::cout<<"qqqq"<<endl;
 
 if(m_source == 0){
   
@@ -137,12 +131,12 @@ if(m_source == 0){
   double hy=1.0/(m_ny-1);
   double a_kk =(-2)*((1.0/pow(hx,2)+(1.0/pow(hy,2))));
   
-  std::cout<<"NO SOURCE!";
+  std::cout<<"NO SOURCE!"<< "\n";
   
   int num_iter = 0;
   while (num_iter < 5000) {
-    for(size_t i = 1; i <= (m_nx - 1); i++) {
-      for (size_t j = 1; j <= (m_ny - 1); j++) {
+    for(size_t i = 1; i < (m_nx - 1); i++) {
+      for (size_t j = 1; j < (m_ny - 1); j++) {
       m_temperature_values[i][j] = (1.0/a_kk)*(-(1.0/pow(hy,2))*(m_temperature_values[i][j-1]+m_temperature_values[i][j+1])
                                             -(1.0/pow(hx,2))*(m_temperature_values[i+1][j]+m_temperature_values[i-1][j]));
         }
@@ -155,12 +149,14 @@ if(m_source == 0){
 
 else
 {
+
+    cout<<"Source = 2*pi*pi*sin(pi*x)*sin(pi*y)"<< "\n";  
     double hx =1.0/(m_nx-1);
     double hy =1.0/(m_ny-1);
     double a_kk =(-2)*((1.0/pow(hx,2)+(1.0/pow(hy,2))));
-    std::cout<<"value of a_kk"<<a_kk<<std::endl;
+    //std::cout<<"value of a_kk"<<a_kk<<std::endl;
     int num_iter=0;
-    std::cout<<" Inside else"<<endl;
+    //std::cout<<" Inside else"<<endl;
 
     std::vector<std::vector<double>> b;
     
@@ -191,6 +187,8 @@ else
   }
 
 }
+
+
 }
 
 void iterativeSchemes::unit_test(){
@@ -273,4 +271,4 @@ void iterativeSchemes::unit_test(){
   // }
 
   
-} */
+}

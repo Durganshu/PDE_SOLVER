@@ -30,6 +30,14 @@ int main(int argc, char **argv){
 
         ITR->eight_point_stencil();
     }
+
+    else if(ITR->m_iterative_scheme == "Gauss_Seidel"){
+        ITR->set_boundary_conditions(ITR->m_left, ITR->m_right, ITR->m_top,
+                                ITR->m_bottom);
+
+        ITR->gauss_seidel();
+    }
+
     else if(ITR->m_iterative_scheme == "Unit_test"){
         ITR->set_boundary_conditions();
         ITR->unit_test();

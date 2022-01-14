@@ -2,7 +2,6 @@
 #define ITERATIVE_SCHEMES_H
 
 #include "pde_solver.h"
-#include <vector>
 
 class iterativeSchemes : public pdeSolver{
     
@@ -14,7 +13,7 @@ class iterativeSchemes : public pdeSolver{
         void eight_point_stencil();
 
         std::vector<std::vector<double>> generate_b(double,double);
-        
+
         void gauss_seidel();
 
         void unit_test();
