@@ -2,7 +2,6 @@
     "version" : 1.0,
     "mesh" : {
       "file_name" : "../input/mesh1.csv",
-      "scale_factor" : 1,
       "nx" : 101,
       "ny" : 101
     },
