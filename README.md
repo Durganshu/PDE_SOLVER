@@ -111,8 +111,9 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
     }
 
-"numerical_scheme" : The name of the iterative_method to be used. It can also contain "Unit Test".
+"numerical_scheme" : The name of the iterative_method to be used. It can contain following values: "Four_point_stencil", "Eight_point_stencil", "Gauss_Seidel" and "Unit_test".
 
+"unit_test_method" : The name of the iterative_method to be used if "Unit_test" is selected. It can contain following values: "Four_point_stencil" or "Eight_point_stencil".
 
 "boundary_conditions" : All the inputs related to the boundary_conditions are to be supplied in this key.
 
@@ -141,7 +142,7 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
     }-
 
-"Add a snapshot of the input file"
+![input_file](/images/input_file.png)
 
 # Code Implementation for Sprint 2
 
@@ -166,19 +167,21 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
 # Following snippets from the console display show the execution:
 
-![Initial_directory_structure](/images/compile_and_ru.png)
+**Intial directory structure**
 
-**For first two cases**
+![directory_structure](/images/directory_structure.png)
 
-![For_first_2_case](/images/first_user_input.png)
+**Making the build directory and generating the build system**
 
-![Boundary_conditions](/images/boundary_conditions.png)
+![build_system](/images/building_cmake.png)
 
-**For the unit test**
+**Building the executable:**
 
-![Second_user_input](/images/second_user_input.png)
+![building](/images/make.png)
 
-![Final_run](/images/final_run.png)
+**Running the executable: 
+
+![Final_run](/images/execution.png)
 
 # ...and the result files: 
 
@@ -197,6 +200,9 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 **...somewhere in between:**
 
 ![somewhere](/images/unit_test_csv_2.png)
+
+#How to extend the code to include a new feature?
+
 
 **THANKS!!**
 
