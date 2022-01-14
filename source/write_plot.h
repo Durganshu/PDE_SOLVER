@@ -19,13 +19,12 @@ class writePlot{
 
         writePlot();
 
-        void write_csv(const std::vector<double>x_values, 
-        const std::vector<double> y_values,
-        const std::vector<std::vector<double>>& temperature, 
-        const std::vector<std::vector<double>>& refernece_temperature = {{}}, 
-        std::string filename = "results.csv");
+        void write_csv(const vector<double>x_values, 
+        const vector<double> y_values,
+        const vector<vector<double>>& temperature, 
+        const vector<vector<double>>& reference_temperature = {{}});
 
-        void plot();
+        void plot(const int&, const int&, const string iterative_method);
 
 };
 

@@ -5,11 +5,11 @@ writePlot::writePlot(){}
 void writePlot::write_csv(const vector<double> x_values, 
     const vector<double> y_values,
     const vector<vector<double>>& temperature, 
-    const vector<vector<double>>& reference_temperature, string filename){ 
+    const vector<vector<double>>& reference_temperature){ 
     
     cout<<"Writing results....."<<endl;
     ofstream myfile;
-    string file_path = "../results/" + filename;
+    string file_path = "../results/results.csv";
     myfile.open (file_path);
     int nx=temperature.size();
     int ny=temperature[0].size();
@@ -52,10 +52,16 @@ void writePlot::write_csv(const vector<double> x_values,
 
 }
 
-void writePlot::plot(){
+void writePlot::plot(const int& nx, const int& ny, const string iterative_method){
     // Start the Python interpreter
     py::scoped_interpreter guard{};
     using namespace py::literals;
+
+    py::dict locals = py::dict{
+        "nx"_a = nx,
+        "ny"_a = ny,
+        "iterative_scheme"_a = iterative_method
+    };
 
     py::exec(R"(
     
@@ -72,8 +78,8 @@ void writePlot::plot(){
 
     data1 = data[1:,:]
 
-    nx = 101
-    ny = 101
+    #nx = 101
+    #ny = 101
 
     row_values = range(0,nx)
 
@@ -83,7 +89,7 @@ void writePlot::plot(){
 
 
     column = 2
-    if(filename == 'unit_test_results.csv'):
+    if(iterative_scheme == 'Unit_test'):
         column = 3
 
     
@@ -119,7 +125,7 @@ void writePlot::plot(){
     plt.savefig("../results/results.png")  #savefig, don't show
     
     )",
-             py::globals());
+             py::globals(), locals);
  
 
 }

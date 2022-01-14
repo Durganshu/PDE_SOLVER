@@ -14,7 +14,7 @@ class iterativeSchemes : public pdeSolver{
 
         void gauss_seidel();
 
-        bool unit_test(char choice);
+        void unit_test();
         
 };
 
