@@ -1,15 +1,14 @@
 #include "write_plot.h"
 
-writePlot::writePlot(){}
 
 void writePlot::write_csv(const vector<double> x_values, 
     const vector<double> y_values,
     const vector<vector<double>>& temperature, 
-    const vector<vector<double>>& reference_temperature, string filename){ 
+    const vector<vector<double>>& reference_temperature){ 
     
     cout<<"Writing results....."<<endl;
     ofstream myfile;
-    string file_path = "../results/" + filename;
+    string file_path = "../results/results.csv";
     myfile.open (file_path);
     int nx=temperature.size();
     int ny=temperature[0].size();
@@ -52,11 +51,16 @@ void writePlot::write_csv(const vector<double> x_values,
 
 }
 
-
-void writePlot::plot(){
+void writePlot::plot(const int& nx, const int& ny, const string iterative_method){
     // Start the Python interpreter
     py::scoped_interpreter guard{};
     using namespace py::literals;
+
+    py::dict locals = py::dict{
+        "nx"_a = nx,
+        "ny"_a = ny,
+        "iterative_scheme"_a = iterative_method
+    };
 
     py::exec(R"(
     
@@ -73,18 +77,18 @@ void writePlot::plot(){
 
     data1 = data[1:,:]
 
-    L = 101
-    H = 101
+    #nx = 101
+    #ny = 101
 
-    row_values = range(0,L)
+    row_values = range(0,nx)
 
     col = 0
     itr = 0
-    data2 = np.zeros((L, H))
+    data2 = np.zeros((nx, ny))
 
 
     column = 2
-    if(filename == 'unit_test_results.csv'):
+    if(iterative_scheme == 'Unit_test'):
         column = 3
 
     
@@ -93,18 +97,34 @@ void writePlot::plot(){
             data2[row,col] = data1[itr,column]
             itr = itr + 1
         col = col+1
-        if(col == L):
+        if(col == ny):
             break
-
-    print(data2)
-    plt.imshow(np.transpose(data2),cmap = cm.jet)
+    
+    
+    #x = np.linspace(0,1,nx)
+    #y = np.linspace(0,1,ny)
+    #r = np.sqrt(x**2 + y**2)
+    #theta = np.arctan2(y,x)
+    #print(theta)
+    #print(np.shape(r))
+    #fig = plt.figure()
+    #ax = fig.add_subplot(111, polar = 'True')
+    #ax = fig.add_subplot(111)
+    plt.imshow(np.transpose(data2),cmap = cm.jet, extent=[-0.5, 0.5, -0.5, 0.5])
+    #ax.imshow(np.transpose(data2),cmap = cm.jet)
+    #pc = ax.pcolormesh(theta, r, np.transpose(data2),cmap = cm.jet)
+    #pc = ax.pcolormesh(np.transpose(data2),cmap = cm.jet)
+    #fig.colorbar(pc)
+    #ax.set_theta_zero_location('N')
+    #ax.set_xticklabels(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'], color='red')
+    #ax.set_rlim(0, 1)
     plt.colorbar()
     plt.show()
 
     plt.savefig("../results/results.png")  #savefig, don't show
     
     )",
-             py::globals());
+             py::globals(), locals);
  
 
 }

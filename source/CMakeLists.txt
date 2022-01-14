@@ -25,8 +25,6 @@ SET (sources
 SET( CMAKE_CXX_COMPILER "g++" )
 
 # general flags for the compiler.
-#SET( CMAKE_CXX_FLAGS " -Wall -pedantic" )
-SET( CMAKE_CXX_FLAGS " -Wall -fopenmp -DZN_LINUX" )
 set(CMAKE_CXX_STANDARD 17)
 
 # flags for the compiler in debug mode.

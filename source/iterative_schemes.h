@@ -17,9 +17,7 @@ class iterativeSchemes : public pdeSolver{
         
         void gauss_seidel();
 
-        //double gauss_seidel_residual(std::vector<std::vector<double>> , std::vector<std::vector<double>> ,double , double);
-
-        bool unit_test(char choice);
+        void unit_test();
         
 };
 

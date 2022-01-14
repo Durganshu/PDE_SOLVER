@@ -24,7 +24,10 @@ class pdeSolver{
 
         void read_mesh();
         
-        void set_boundary_conditions();
+
+        void set_boundary_conditions(double left = 0, double right = 1, double top = 0,
+                             double bottom = 0);
+
         
         vector<vector<double>> get_results();
 
@@ -34,14 +37,16 @@ class pdeSolver{
     
         void print_grid();
 
-        const string m_iterative_scheme;
+        const string m_iterative_scheme, m_unit_test_method;
+
+        const double m_left, m_right, m_bottom, m_top, m_source;
 
     protected:
         const int m_nx, m_ny;
-        const double m_left, m_right, m_bottom, m_top, m_source;
-        vector<double> m_x_polar, m_y_polar, m_x_cartesian, m_y_cartesian;
+        
+        vector<double> m_x_cartesian, m_y_cartesian;
         const string m_mesh_file;
-        vector<vector<double>> m_temperature_values, m_mesh;
+        vector<vector<double>> m_temperature_values, m_mesh, m_reference_temperature;
 
     
 };

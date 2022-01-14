@@ -8,18 +8,17 @@ pdeSolver::pdeSolver(const Json::Value jroot) : m_nx(jroot["mesh"]["nx"].asInt()
     ["bottom"].asDouble()),m_source(jroot["boundary_conditions"]
     ["source"].asInt()),
     m_iterative_scheme(jroot["numerical_scheme"].asString()),
+    m_unit_test_method(jroot["unit_test_method"].asString()),
     m_mesh_file(jroot["mesh"]["file_name"].asString()){
 
-    m_x_polar.resize(m_nx);
-    m_y_polar.resize(m_ny);
     m_x_cartesian.resize(m_nx);
     m_y_cartesian.resize(m_ny);
     m_temperature_values.resize(m_nx);
-    m_mesh.resize(m_nx);
+    m_reference_temperature.resize(m_nx);
     for(size_t i = 0;i < m_nx;i++){
         m_temperature_values[i].resize(m_ny);
-        m_mesh[i].resize(m_ny);
-    }    
+        m_reference_temperature[i].resize(m_ny);
+    }   
 }
         
 
@@ -54,27 +53,30 @@ void pdeSolver::read_mesh(){
         cout<<"Could not open the file\n";
 }
         
-void pdeSolver::set_boundary_conditions(){
+void pdeSolver::set_boundary_conditions(const double left, 
+        const double right , const double top ,
+        const double bottom){
 
   // Imposing on the left and right side
 
   cout<<"m_nx: "<<m_nx<<endl;
   cout<<"m_nx: "<<m_ny<<endl;
     for (size_t i = 0; i < m_nx; i++) {
-        m_temperature_values[i][0] = m_left;
-        m_temperature_values[i][m_ny - 1] = m_right;
+        m_temperature_values[i][0] = left;
+        m_temperature_values[i][m_ny - 1] = right;
     }
 
   // Imposing on the top and bottom side
     for (size_t i = 1; i < m_ny - 1; i++) {
-        m_temperature_values[0][i] = m_top;
-        m_temperature_values[m_nx - 1][i] = m_bottom;
+        m_temperature_values[0][i] = top;
+        m_temperature_values[m_nx - 1][i] = bottom;
     }
 
     std::cout << "Boundary Conditions imposed....." << std::endl;
 
 
 }
+
         
 vector<vector<double>> pdeSolver::get_results(){
     return m_temperature_values;
@@ -87,15 +89,15 @@ void pdeSolver::write_results(){
         m_iterative_scheme == "Gauss_Seidel")
         handle->write_csv(m_x_cartesian,m_y_cartesian,m_temperature_values);
 
-    //else if(m_iterative_scheme == "Unit_test")
-        //handle->write_csv(m_x_cartesian,m_y_cartesian,m_temperature_values,
-        //reference_temperature, "unit_test_results.csv");
+    else if(m_iterative_scheme == "Unit_test")
+        handle->write_csv(m_x_cartesian,m_y_cartesian,m_temperature_values,
+        m_reference_temperature);
 
 }
 
 void pdeSolver::plot_results(){
      writePlot* handle = new writePlot();
-     handle->plot();
+     handle->plot(m_nx, m_ny, m_iterative_scheme);
 }
     
 void pdeSolver::print_grid(){
