@@ -121,22 +121,6 @@ return b;
 
 }
 
-double iterativeSchemes::gauss_seidel_residual(std::vector<std::vector<double>> temperature_values,std::vector<std::vector<double>> b,double hx, double hy)
-{ 
-  double residual=0.0;
-  std::cout<<"Entering residual func";
-  for (size_t i = 1; i <(m_nx - 1); i++) {
-      for (size_t j = 1; j <(m_ny - 1); j++) {
-        residual=residual+(b[i-1][j-1]-(((1.0/pow(hx,2))*(temperature_values[i+1][j]+m_temperature_values[i][j]+temperature_values[i-1][j]))
-                                    +((1.0/pow(hy,2))*(temperature_values[i][j+1]+m_temperature_values[i][j]+temperature_values[i][j-1]))));
-      }
-
-    }
-    residual=std::sqrt(residual/(m_nx-1)*(m_ny));
-    std::cout<<"current residual value is "<<residual<<std::endl;
-    return residual;
-}
-
 void iterativeSchemes::gauss_seidel(){
 
 //double residual=1e-4;
@@ -184,10 +168,10 @@ else
 
     std::vector<std::vector<double>> temperature_values(m_nx, std::vector<double>(m_ny, 0)); //nodal temperature matrix having 0 in the boundaries because the BCs have already been incorporated in "b"..therefore we need a matrix which has 0s in the boundary to satisfy the formula below
 
-    double tolerance=1e-4; 
-    double residual = tolerance+1;
+    //double tolerance=1e-4; 
+    //double residual = tolerance+1;
     
-    while(residual> tolerance){
+    while(num_iter< 17000){
     for (size_t i = 1; i <(m_nx - 1); i++) {
       for (size_t j = 1; j <(m_ny - 1); j++) {
         temperature_values[i][j] = (1.0/a_kk)*(b[i-1][j-1]-((1.0/pow(hy,2))*(temperature_values[i][j-1]+temperature_values[i][j+1]))
@@ -195,10 +179,10 @@ else
       }
     }
 
-    residual = gauss_seidel_residual(temperature_values,b,hx,hy);
+    //residual = gauss_seidel_residual(temperature_values,b,hx,hy);
     num_iter=num_iter+1;    }
     
-    std::cout<<"Final residual is "<<residual<<std::endl;
+    //std::cout<<"Final residual is "<<residual<<std::endl;
 
     for (size_t i = 1; i <(m_nx - 1); i++) {  // Copies the values at the internal nodes of the temporary Temp Grid into the final solution
       for (size_t j = 1; j <(m_ny - 1); j++) {
@@ -209,6 +193,22 @@ else
 }
 }
 
+
+/* double iterativeSchemes::gauss_seidel_residual(std::vector<std::vector<double>> temperature_values,std::vector<std::vector<double>> b,double hx, double hy)
+{ 
+  double residual=0.0;
+  std::cout<<"Entering residual func";
+  for (size_t i = 1; i <(m_nx - 1); i++) {
+      for (size_t j = 1; j <(m_ny - 1); j++) {
+        residual=residual+(b[i-1][j-1]-(((1.0/pow(hx,2))*(temperature_values[i+1][j]+m_temperature_values[i][j]+temperature_values[i-1][j]))
+                                    +((1.0/pow(hy,2))*(temperature_values[i][j+1]+m_temperature_values[i][j]+temperature_values[i][j-1]))));
+      }
+
+    }
+    residual=std::sqrt(residual/(m_nx-1)*(m_ny));
+    std::cout<<"current residual value is "<<residual<<std::endl;
+    return residual;
+} */
 
 
 /* bool unit_test(char choice){
