@@ -17,7 +17,7 @@ using std::endl;
 class writePlot{
     public:
 
-        writePlot();
+        writePlot() = default;
 
         void write_csv(const vector<double>x_values, 
         const vector<double> y_values,

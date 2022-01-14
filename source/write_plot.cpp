@@ -1,6 +1,5 @@
 #include "write_plot.h"
 
-writePlot::writePlot(){}
 
 void writePlot::write_csv(const vector<double> x_values, 
     const vector<double> y_values,
