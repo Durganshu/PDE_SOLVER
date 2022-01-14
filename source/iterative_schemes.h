@@ -13,9 +13,11 @@ class iterativeSchemes : public pdeSolver{
 
         void eight_point_stencil();
 
+        std::vector<std::vector<double>> generate_b(double,double);
+        
         void gauss_seidel();
 
-        std::vector<std::vector<double>> generate_b(double,double);
+        double gauss_seidel_residual(std::vector<std::vector<double>> , std::vector<std::vector<double>> ,double , double);
 
         bool unit_test(char choice);
         
