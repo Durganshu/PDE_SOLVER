@@ -166,7 +166,7 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
   *`cmake ../source/ -DCMAKE_BUILD_TYPE=Release` or `cmake ../source/ -DCMAKE_BUILD_TYPE=Debug`
 
-  `make`
+  `make` or `make -j4` (where 4 is the number of CPUs)
 
   **`./pdesolver ../input/input_file.json` or `./pdesolver_debug ../input/input_file.json`
 
@@ -191,7 +191,7 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
 ![building](/images/make.png)
 
-**Running the executable: 
+**Running the executable:** 
 
 ![Final_run](/images/execution.png)
 
