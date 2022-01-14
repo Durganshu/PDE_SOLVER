@@ -1,7 +1,13 @@
 # PDE Solver_ Group DH
 
 # Project Overview
-In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T`$ =0. 
+In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T`$ - S(**x,y**)=0.
+So far we have hardcoded the source function in the program. 
+
+$`S(x,y)=-2 \pi^2 sin(\pi x)(\pi y)`$ here, "x" and "y" are the coordinates on the unit plate
+
+The user has the option either to include the source or exclude it.
+
 
 # General Comments
 - No external C++ library required 
@@ -12,7 +18,7 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 - The building and compilation is done using cmake and make. The building can be done in Debug as well as Release mode.
 - Input is supplied through a JSON file.
 - Mesh can be imported from an external directory as *.csv (Comma-separated Values) file.
-- Gauss-Seidel solver has been added for added functionality.
+- Gauss-Seidel solver has been added as an extended functionality.
 - Python Matplotlib has been added in the C++ code using the pybind11 module.
 
 # Installing Python3, NumPy and Matplotlib in Ubuntu Linux 
@@ -33,7 +39,7 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 # Installing pybind11 library in Ubuntu Linux
 `sudo apt-get install python-pybind11`
 
-If the above installation doesn't works, follow these steps in succession:
+If the above installation doesn't work, follow these steps in succession:
 
 `cd /tmp`
 
@@ -48,7 +54,7 @@ If the above installation doesn't works, follow these steps in succession:
 # Problem Formulation
 - Consider a square plate with length: L=1m and height: H=1m.
 
-- All the edges are maintained at different temperatures and the user is allowed to set these values at runtime. Only constant values of Temperature can be applied on the edges of the square plate (In sprint-1). 
+- All the edges are maintained at different temperatures and the user is allowed to set these values at runtime. Only **constant values** of Temperature can be applied on the edges of the square plate. 
 
 ![Configuration at Steady state](/images/config.png)
 
@@ -65,6 +71,8 @@ If the above installation doesn't works, follow these steps in succession:
 ![8 point point stencil](/images/8pt_stencil.jpg)
 
 ## Gauss-Seidel Algorithm
+-Iterative solver which uses the 4-point stencil to traverse the imported grid and determine the temperature at the internal nodes using the information of the temperature values in the 4 nearest neighbours. Initial temperature guess = 0 at all the interior nodes. 
+
 
 
 # Unit Test:
