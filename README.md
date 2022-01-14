@@ -93,7 +93,7 @@ This compares the results of a particular bounudary condition (as shown below) w
 <img src=/images/results.png width="500" height="400" />
 
 ## Result of implementing Gauss-Seidel with and without source
-The figure below shows the effect of combined source and boundary terms. It can be clearly observed that the source terms increase the temperature on certain internal node points.
+The figure below shows the effect of combined source and boundary terms. It can be clearly observed that the source term dissipates  the heat towards the boundaries (increases the temperature on the nodes towards the edges of the plate).
 
 ![Gauss-Siedel Results](/images/results_gs.png)
 
