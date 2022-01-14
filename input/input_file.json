@@ -1,0 +1,28 @@
+{
+    "version" : 1.0,
+    "mesh" : {
+      "file_name" : "../input/mesh1.csv",
+      "nx" : 101,
+      "ny" : 101
+    },
+    "numerical_scheme" : "Unit_test",
+
+    "unit_test_method" : "Four_point_stencil", 
+
+    "boundary_conditions" : {
+        "left": 200,
+        "right": 100,
+        "top": 200,
+        "bottom": 100,
+        "source" : 0
+    },
+    
+  
+    "results" : {
+      "file_name" : "results",
+      "file_typye" : ".csv"
+    }
+    
+  }
+  
+  
