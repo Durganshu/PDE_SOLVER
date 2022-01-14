@@ -81,30 +81,30 @@ std::vector<std::vector<double>> iterativeSchemes::generate_b(double hx,double h
                     //std::cout<<" b at "<<i<<" "<<j<<" is "<<source_function_value;
 
                     if ((i == 0) && (j == 0))   //top left corner
-                        b[i][j] = source_function_value-(m_left)/(pow(hy,2))-(m_top)/(pow(hx,2));
+                        b[i][j] = source_function_value - (m_left/pow(hy,2)) - (m_top/pow(hx,2));
                     
                     else if ((i == 0) && (j == columns_of_b-1)) // top right corner
-                        b[i][j] = source_function_value-(m_right)/(pow(hy,2))-(m_top)/(pow(hx,2));
+                        b[i][j] = source_function_value - (m_right/pow(hy,2)) - (m_top/pow(hx,2));
                     
                     else if((i == (rows_of_b-1)) && (j == 0))  //Bottom left corner
                         {
-                        b[i][j] = source_function_value-(m_left)/(pow(hy,2))-(m_bottom)/(pow(hx,2));
+                        b[i][j] = source_function_value - (m_left/pow(hy,2)) - (m_bottom/pow(hx,2));
                         }
 
                     else if((i == (rows_of_b-1)) && (j == (columns_of_b-1)))  //Bottom right corner
-                        b[i][j] = source_function_value-((m_right)/(pow(hy,2)))-((m_bottom)/(pow(hx,2)));
+                        b[i][j] = source_function_value - (m_right/pow(hy,2)) - (m_bottom/pow(hx,2));
 
                     else if (i == 0)  //topmost row
-                        b[i][j] = source_function_value-(m_top)/(pow(hx,2));
+                        b[i][j] = source_function_value - (m_top/pow(hx,2));
 
                     else if (j == 0) //leftmost column
-                      b[i][j] = source_function_value-(m_left)/(pow(hy,2));
+                      b[i][j] = source_function_value - (m_left/pow(hy,2));
 
                     else if ( j == (columns_of_b-1))  //rightmost column
-                       b[i][j] = source_function_value-(m_right)/(pow(hy,2));
+                       b[i][j] = source_function_value - (m_right/pow(hy,2));
                     
                     else if ( i == (rows_of_b-1))  //bottommost row
-                        b[i][j] = source_function_value-(m_bottom)/(pow(hx,2));
+                        b[i][j] = source_function_value - (m_bottom/pow(hx,2));
                     
 
                     else  //internal nodes 
@@ -113,10 +113,10 @@ std::vector<std::vector<double>> iterativeSchemes::generate_b(double hx,double h
                     //std::cout<<b[i][j]<<"  ";
                     
           }
-        std::cout<<std::endl;
+        //std::cout<<std::endl;
 
       }
-std::cout<<std::endl;
+//std::cout<<std::endl;
 return b;
 
 }
@@ -177,7 +177,7 @@ else
 
     std::vector<std::vector<double>> temperature_values(m_nx, std::vector<double>(m_ny, 0)); 
 
-    while(num_iter< 5000){
+    while(num_iter< 17000){
     for (size_t i = 1; i <(m_nx - 1); i++) {
       for (size_t j = 1; j <(m_ny - 1); j++) {
 
