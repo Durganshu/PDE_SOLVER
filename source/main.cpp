@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
   // ITR->print_grid();
 
   if (ITR->m_iterative_scheme == "Four_point_stencil" ||
-      ITR->m_iterative_scheme == "four_point_stencil" ||) {
+      ITR->m_iterative_scheme == "four_point_stencil" ) {
     ITR->set_boundary_conditions(ITR->m_left, ITR->m_right, ITR->m_top,
                                  ITR->m_bottom);
 
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     ITR->unit_test();
 
   } else {
-    cout << "Incorrect input for iterative scheme. Exiting!";
+    cout << "Incorrect input for iterative scheme. Exiting!\n";
     exit(0);
   }
 

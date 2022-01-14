@@ -5,7 +5,7 @@
       "nx" : 101,
       "ny" : 101
     },
-    "numerical_scheme" : "Gauss_seidel",
+    "numerical_scheme" : "Gauss_Seidel",
 
     "unit_test_method" : "Four_point_stencil", 
 
