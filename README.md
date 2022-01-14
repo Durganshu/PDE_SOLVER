@@ -1,12 +1,12 @@
 # PDE Solver_ Group DH
 
 # Project Overview
-In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T`$ - S(**x,y**)=0.
+In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T- S(x,y) =0`$.
 So far we have hardcoded the source function in the program. 
 
 $`S(x,y)=-2 \pi^2 sin(\pi x)(\pi y)`$ here, "x" and "y" are the coordinates on the unit plate
 
-The user has the option either to include the source or exclude it.
+The user has the option either to include the source or exclude it in the JSON input file.
 
 
 # General Comments
@@ -95,6 +95,8 @@ This compares the results of a particular bounudary condition (as shown below) w
 ## Result of implementing Gauss-Seidel with and without source
 The figure below shows the effect of combined source and boundary terms. It can be clearly observed that the source terms increase the temperature on certain internal node points.
 
+![Gauss-Siedel Results](/images/results_gs.png)
+
 # Directory structure of files
 
 The directory consists of following sub-directories:
@@ -109,7 +111,7 @@ The directory consists of following sub-directories:
 # Format of Input JSON file:
 The input file is called [**input_file.json**](/input/input_file.json). JSON files are a very easy and convenient way of storing the information. The file consists of "key:value" pairs and the user is required to insert the corresponding values. The keys are imported as variables in the code and their values are assigned accordinly. Following variables are to be taken as inputs:
 
-"mesh" : All the inputs related to the mesh are to be supplied in this key.
+**"mesh"** : All the inputs related to the mesh are to be supplied in this key.
 
     {
 
@@ -121,9 +123,9 @@ The input file is called [**input_file.json**](/input/input_file.json). JSON fil
 
     }
 
-**"numerical_scheme"** : The name of the iterative_method to be used. It can contain following values: "Four_point_stencil", "Eight_point_stencil", "Gauss_Seidel" and "Unit_test".
+**"numerical_scheme"** : The name of the iterative_method to be used. It can contain following values: **"Four_point_stencil"**, **"Eight_point_stencil"**, **"Gauss_Seidel"** and **"Unit_test"**.
 
-**"unit_test_method"** : The name of the iterative_method to be used if "Unit_test" is selected. It can contain following values: "Four_point_stencil" or "Eight_point_stencil". Source is not considered here.
+**"unit_test_method"** : The name of the iterative_method to be used if "Unit_test" is selected. It can contain following values: **"Four_point_stencil"** or **"Eight_point_stencil"**. Source term is not considered here in the unit test.
 
 **"boundary_conditions"** : All the inputs related to the boundary_conditions are to be supplied in this key.
 
