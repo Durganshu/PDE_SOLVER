@@ -1,11 +1,25 @@
 # PDE Solver_ Group DH
 
 # Project Overview
-In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T`$ =0. 
+In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T- S(x,y) =0`$.
+So far we have hardcoded the source function in the program. 
+
+$`S(x,y)=-2 \pi^2 sin(\pi x)(\pi y)`$ here, "x" and "y" are the coordinates on the unit plate
+
+The user has the option either to include the source or exclude it in the JSON input file.
+
 
 # General Comments
 - No external C++ library required 
 - Matplotlib and NumPy modules in python3 required for visualization of the computed results. 
+
+# Updates in Sprint 2
+- The whole package is now Object oriented with different functionalities implemented as different classes.
+- The building and compilation is done using cmake and make. The building can be done in Debug as well as Release mode.
+- Input is supplied through a JSON file.
+- Mesh can be imported from an external directory as *.csv (Comma-separated Values) file.
+- Gauss-Seidel solver has been added as an extended functionality.
+- Python Matplotlib has been added in the C++ code using the pybind11 module.
 
 # Installing Python3, NumPy and Matplotlib in Ubuntu Linux 
 
@@ -19,10 +33,28 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 
 `pip install matplotlib`
 
+# Installing jsoncpp library in Ubuntu Linux
+`sudo apt-get install libjsoncpp-dev`
+
+# Installing pybind11 library in Ubuntu Linux
+`sudo apt-get install python-pybind11`
+
+If the above installation doesn't work, follow these steps in succession:
+
+`cd /tmp`
+
+`git clone https://github.com/pybind/pybind11`
+
+`mkdir pybind11/build && cd pybind11/build`
+
+`cmake .. -DPYBIND11_TEST=OFF`
+
+`sudo make install`
+
 # Problem Formulation
 - Consider a square plate with length: L=1m and height: H=1m.
 
-- All the edges are maintained at different temperatures and the user is allowed to set these values at runtime. Only constant values of Temperature can be applied on the edges of the square plate (In sprint-1). 
+- All the edges are maintained at different temperatures and the user is allowed to set these values at runtime. Only **constant values** of Temperature can be applied on the edges of the square plate. 
 
 ![Configuration at Steady state](/images/config.png)
 
@@ -37,12 +69,18 @@ In this project we are trying to obtain the steady state solution of the 2D Heat
 ## Eight Point Stencil
 -Calculates the temperature value at a given node by averaging the temperature of its 8 nearest neighbours.
 ![8 point point stencil](/images/8pt_stencil.jpg)
+
+## Gauss-Seidel Algorithm
+-Iterative solver which uses the 4-point stencil to traverse the imported grid and determine the temperature at the internal nodes using the information of the temperature values in the 4 nearest neighbours. Initial temperature guess = 0 at all the interior nodes. 
+![Gauss-Siedel Grid Traversal](/images/gs.png)
+
+
 # Unit Test:
-This compares the results of a particular bounudary condition (as shown below) with the results of the analytical solution imposed to those same boundary conditions.
+This compares the results of a particular bounudary condition (as shown below) with the results of the analytical solution imposed to those same boundary conditions. **Note:** Source Term is not considered in the unit test. 
 
 ![Test Configuration at Steady state](/images/test_config.png)
 
-## Analytical solution
+## Analytical solution when there is no source term i.e. S(x,y)=0
 ![General_Sol](/images/gen_solution.png)
 
 - For L=1, H=1 the equation simplifies into:
@@ -51,9 +89,13 @@ This compares the results of a particular bounudary condition (as shown below) w
 
 
 
-## Result of Unit Test (Temperature Distribution) 
-
+## Result of Unit Test (Temperature Distribution)  
 <img src=/images/results.png width="500" height="400" />
+
+## Result of implementing Gauss-Seidel with and without source
+The figure below shows the effect of combined source and boundary terms. It can be clearly observed that the source term dissipates  the heat towards the boundaries (increases the temperature on the nodes towards the edges of the plate).
+
+![Gauss-Siedel Results](/images/results_gs.png)
 
 # Directory structure of files
 
@@ -62,40 +104,96 @@ The directory consists of following sub-directories:
 
 2. [**results:**](/results/) This folder contains the generated output files after executing the code.
 
-3. [**python_files:**](/python_files/) This folder contains the python files that can be used for plotting and viewing the results.
+3. [**source:**](/source/) This folder contains the source files, header files and the [**CMakeLists.txt**](/source/CMakeLists.txt) file, required for making and building the applications.
 
-Besides that, there is a main.cpp and README.md file. [**main.cpp**](/main.cpp) is the source code and is meant to be compiled and executed. 
-After running the code, an executable is generated as per the choice of the user. 
+4. [**input:**](/input/) This folder contains the input mesh and input json file. User needs to modify only these files in order to get the results.
 
+# Format of Input JSON file:
+The input file is called [**input_file.json**](/input/input_file.json). JSON files are a very easy and convenient way of storing the information. The file consists of "key:value" pairs and the user is required to insert the corresponding values. The keys are imported as variables in the code and their values are assigned accordinly. Following variables are to be taken as inputs:
 
-# Code Implementation for Sprint 1
+**"mesh"** : All the inputs related to the mesh are to be supplied in this key.
 
-1. The 2D Mesh is automatically created and the user is prompted to make a choice among:
--  Four point stencil (Press 1)
--  Eight Point stencil (Press 2)
--  Run a unit Test (Press 3)
+    {
 
-2. If the user chooses either 1 or 2, the solution strategy is selected accordingly. The nodal coordinates are recorded in an excel file: "results.csv" along with their corrsponding temperature values. 
+      "file_name" : The location of the .csv file (with its name).
 
-- If the user decides to run a unit test, again there is a prompt to select either the 4 point or the 8 point stencil. The results of the unit test using a specific solution strategy and the analytical result are recorded in the excel file "reference_results.csv". Apart from the nodal coordniates and the corresponding temperature values, the solution of the analytical calculation and the absolute error is also recorded so that the user can gain confidence while using the algorithm. 
+      "nx" : Number of nodes in x direction.
 
-3. Visualization of the temperature distribution at the steady state is implemented using matplotlib module in Python.  
+      "ny" : Number of nodes in the y direction.
+
+    }
+
+**"numerical_scheme"** : The name of the iterative_method to be used. It can contain following values: **"Four_point_stencil"**, **"Eight_point_stencil"**, **"Gauss_Seidel"** and **"Unit_test"**.
+
+**"unit_test_method"** : The name of the iterative_method to be used if "Unit_test" is selected. It can contain following values: **"Four_point_stencil"** or **"Eight_point_stencil"**. Source term is not considered here in the unit test.
+
+**"boundary_conditions"** : All the inputs related to the boundary_conditions are to be supplied in this key.
+
+    {
+
+        "left": The boundary condition at the left boundary.
+
+        "right": The boundary condition at the right boundary.
+
+        "top": The boundary condition at the top boundary.
+
+        "bottom": The boundary condition at the bottom boundary.
+
+        "source" : The value should be 0, if no source or 1 if the source term has to be added.
+
+    }
+    
+  
+**"results"** : All the inputs related to the output file are to be supplied in this key
+
+    {
+
+      "file_name" : Name of the file.
+
+      "file_type" : Format of the result file.
+
+    }-
+
+![input_file](/images/input_file.png)
+
+# Code Implementation for Sprint 2
+
+1. Specify user inputs in the JSON file as specified above.
+
+2. Then follow these steps to build and execute the code:
+
+  `mkdir build && cd build`
+
+  *`cmake ../source/ -DCMAKE_BUILD_TYPE=Release` or `cmake ../source/ -DCMAKE_BUILD_TYPE=Debug`
+
+  `make` or `make -j4` (where 4 is the number of CPUs)
+
+  **`./pdesolver ../input/input_file.json` or `./pdesolver_debug ../input/input_file.json`
+
+*The package can be built in the Release mode or the Debug mode. The default build type is Debug mode. Apart from the above two possibilities, following command can also be used, that'll build in the Debug mode: `cmake ../source/`
+
+**The name of executable for the Debug mode is pdesolver_debug and for the Release mode is pdesolver. The input file needs to be supplied at the time of runnning the application.
+
+3. The outputs will be generated in the [**results**](/results/) directory. 
+
 
 # Following snippets from the console display show the execution:
 
-![Compile_and_run_the_executable](/images/compile_and_ru.png)
+**Initial directory structure**
 
-**For first two cases**
+![directory_structure](/images/directory_structure.png)
 
-![For_first_2_case](/images/first_user_input.png)
+**Making the build directory and generating the build system**
 
-![Boundary_conditions](/images/boundary_conditions.png)
+![build_system](/images/building_cmake.png)
 
-**For the unit test**
+**Building the executable:**
 
-![Second_user_input](/images/second_user_input.png)
+![building](/images/make.png)
 
-![Final_run](/images/final_run.png)
+**Running the executable:** 
+
+![Final_run](/images/execution.png)
 
 # ...and the result files: 
 
@@ -115,9 +213,24 @@ After running the code, an executable is generated as per the choice of the user
 
 ![somewhere](/images/unit_test_csv_2.png)
 
+# How to extend the code to include a new feature?
+
+The code can be readily extended to include new features. The class diagram of the whole structure is:
+
+![class_diagram](/images/sprint2_final.png)
+
+There are three separate classes. The primary class is 'class pdeSolver' that includes all the basic functionalities such as reading the input file, reading the mesh file, setting the boundary conditions, getting the results, etc. Another class is 'class iterativeSchemes' that consists of all the numerical and iterative schemes including the unit test functionality. It is the child class of the pdeSolver class and thus, it inherits all the members of its base class. As it includes only the functionality of the schemes, it doesn't requires any variables to store any sort of data.
+
+The third class is 'class writePlot' which is only used for writing and plotting the data generated by pdeSolver.  The write_results() function and plot_results() function in the pdeSolver class call these two functions to perform the operations.
+
+The main function (in main.cpp) creates an object of iterativeSchemes and it is able to access the variables and members of pdeSolver. So, the whole functionality can be accesses in a few lines.
+
+So, any iterative schemes can be added in iterativeSchemes class and any plotting/visualization functionalities can be added in the writePlot class. As they are not storing any data, they can be directly assessed from pdeSolver class. 
+
+Thus, any features can be added without playing with the implementation of the existing features.
+
+
+
 **THANKS!!**
 
 
-
-
- 
