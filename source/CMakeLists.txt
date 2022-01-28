@@ -35,15 +35,10 @@ SET( CMAKE_CXX_FLAGS_DEBUG " -pg -g " )
 SET( CMAKE_CXX_FLAGS_RELEASE " -O3 -s -DNDEBUG" )
 
 
-#set(EIGEN_DIR "/home/durganshu/pde-solver_-group-dh/source/Eigen/")
 #INCLUDE_DIRECTORIES( ${EIGEN_DIR} )
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 find_package(pybind11 REQUIRED)
 
-#LINK_DIRECTORIES ( ~/install/lib )
-# set the include paths
-
-#target_link_libraries(vec -fsanitize=address)
 
 # Setting the default build type.
 IF( NOT CMAKE_BUILD_TYPE )
@@ -56,22 +51,17 @@ ENDIF()
 IF( CMAKE_BUILD_TYPE MATCHES Release )
   SET( target_name pdesolver )
   SET( compiler_flags ${CMAKE_CXX_FLAGS_RELEASE}  ${CMAKE_CXX_FLAGS} )
-  # Add the executable to be generated.
-  ADD_EXECUTABLE ( ${target_name} ${sources} )
-  TARGET_LINK_LIBRARIES (${target_name} jsoncpp pybind11::embed)
+  
 ELSEIF( CMAKE_BUILD_TYPE MATCHES Debug )
   SET( target_name pdesolver_debug )
   SET( compiler_flags ${CMAKE_CXX_FLAGS_DEBUG}  ${CMAKE_CXX_FLAGS} )
-  # Add the executable to be generated.
-  ADD_EXECUTABLE ( ${target_name} ${sources} )
-  TARGET_LINK_LIBRARIES (${target_name} jsoncpp pybind11::embed)
-ELSEIF( CMAKE_BUILD_TYPE MATCHES Performance )
-  SET( target_name pdesolver_performance )
-  SET( compiler_flags ${CMAKE_CXX_FLAGS_RELEASE}  ${CMAKE_CXX_FLAGS} )
-  # Add the executable to be generated.
-  ADD_EXECUTABLE ( ${target_name} ${sources} )
-  TARGET_LINK_LIBRARIES (${target_name} jsoncpp pybind11::embed -pg)
+  
 ELSE()
   MESSAGE( "Build type is" ${CMAKE_BUILD_TYPE} )
   MESSAGE( FATAL_ERROR "Build type can be Debug or Release" )
 ENDIF()
+
+# Add the executable to be generated.
+ADD_EXECUTABLE ( ${target_name} ${sources} )
+
+TARGET_LINK_LIBRARIES (${target_name} jsoncpp pybind11::embed)
