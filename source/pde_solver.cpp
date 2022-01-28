@@ -49,7 +49,7 @@ void pdeSolver::read_mesh() {
     }
     cout << "Mesh imported successfully." << endl;
   } else {
-    cout << "Could not open the mesh file. Exiting!";
+    cout << "Could not open the mesh file. Exiting!\n";
     exit(0);
   }
 }
