@@ -10,8 +10,8 @@
     "unit_test_method" : "Four_point_stencil", 
 
     "boundary_conditions" : {
-        "left": 120,
-        "right": 120,
+        "left": 100,
+        "right": 100,
         "top": 100,
         "bottom": 100,
         "source" : 1

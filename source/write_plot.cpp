@@ -5,13 +5,13 @@ void writePlot::write_csv(const vector<double> x_values,
                           const vector<vector<double>> &temperature,
                           const vector<vector<double>> &reference_temperature) {
 
-  cout << "Writing results....." << "\n";
+  cout << "Writing results....." << endl;
   ofstream myfile;
   string file_path = "../results/results.csv";
   myfile.open(file_path);
   int nx = temperature.size();
   int ny = temperature[0].size();
-  // cout<<"Size of reference solution: "<<reference_temperature[0][0]<<"\n";
+  // cout<<"Size of reference solution: "<<reference_temperature[0][0]<<endl;
   if (reference_temperature.size() > 1) {
     myfile << "X"
            << ","
@@ -21,7 +21,7 @@ void writePlot::write_csv(const vector<double> x_values,
            << ","
            << "Analytical Solution (in K)"
            << ","
-           << "Absolute Error" << "\n";
+           << "Absolute Error" << endl;
     for (int i = 0; i < nx; i++) {
       for (int j = 0; j < ny; j++) {
         double error = abs(reference_temperature[i][j] - temperature[i][j]);
@@ -36,12 +36,12 @@ void writePlot::write_csv(const vector<double> x_values,
   }
 
   else {
-    // cout<<"Came here!"<<"\n";
+    // cout<<"Came here!"<<endl;
     myfile << "X"
            << ","
            << "Y"
            << ","
-           << "Numerical Solution (in K)" << "\n";
+           << "Numerical Solution (in K)" << endl;
 
     for (int i = 0; i < nx; i++) {
       for (int j = 0; j < ny; j++) {
@@ -55,7 +55,7 @@ void writePlot::write_csv(const vector<double> x_values,
 
   myfile.close();
 
-  cout << "Success. Check " << file_path << "\n";
+  cout << "Success. Check " << file_path << endl;
 }
 
 void writePlot::plot(const int &nx, const int &ny,
@@ -118,9 +118,11 @@ void writePlot::plot(const int &nx, const int &ny,
     del itr
     del data2
     del column
+    del locals
     gc.collect();
     
     )",
            py::globals(), locals);
 
+    py::finalize_interpreter();
 }
