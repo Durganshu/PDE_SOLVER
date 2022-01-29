@@ -88,14 +88,12 @@ void pdeSolver::write_results() {
     handle->write_csv(m_x_cartesian, m_y_cartesian, m_temperature_values,
                       m_reference_temperature);
 
-  delete handle;
 }
 
 void pdeSolver::plot_results() {
   cout<<"Plotting the results...\n";
   writePlot *handle = new writePlot();
   handle->plot(m_nx, m_ny, m_iterative_scheme);
-  delete handle;
 }
 
 void pdeSolver::print_grid() {
