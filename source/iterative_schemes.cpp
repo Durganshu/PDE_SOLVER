@@ -4,12 +4,12 @@ iterativeSchemes::iterativeSchemes(const Json::Value jroot)
     : pdeSolver(jroot) {}
 
 void iterativeSchemes::four_point_stencil() {
-  cout << "\nFour point Stencil In progress..." << "\n";
+  cout << "\nFour point Stencil In progress..." << endl;
 
   // Modifying the interior grid points at a particular iteration
   int num_iter = 0;
   while (num_iter < 5000) {
-    // cout<<"Iteration number "<<num_iter<<"\n";
+    // cout<<"Iteration number "<<num_iter<<endl;
     for (size_t i = 1; i < (m_nx - 1); i++) {
       for (size_t j = 1; j < (m_ny - 1); j++) {
         m_temperature_values[i][j] =
@@ -22,20 +22,20 @@ void iterativeSchemes::four_point_stencil() {
     // print_grid(temperature);
     num_iter = num_iter + 1;
   }
-  cout << "Four point stencil implemented." << "\n";
+  cout << "Four point stencil implemented." << endl;
 }
 
 void iterativeSchemes::eight_point_stencil() {
-  cout << "\nEight point Stencil in progress..." << "\n";
+  cout << "\nEight point Stencil in progress..." << endl;
 
   // Modifying the interior grid points at a particular iteration
   int num_iter = 0;
   while (num_iter < 5000) {
-    // cout<<"Iteration number "<<num_iter<<"\n";
+    // cout<<"Iteration number "<<num_iter<<endl;
     for (size_t i = 1; i < (m_nx - 1); i++) {
       for (size_t j = 1; j < (m_ny - 1); j++) {
         m_temperature_values[i][j] =
-            0.125 *
+            (1.0 / 8.0) *
             (m_temperature_values[i - 1][j + 1] +
              m_temperature_values[i][j + 1] +
              m_temperature_values[i + 1][j + 1] +
@@ -49,7 +49,7 @@ void iterativeSchemes::eight_point_stencil() {
     // print_grid(temperature);
     num_iter = num_iter + 1;
   }
-  cout << "Eight point stencil implemented " << "\n";
+  cout << "Eight point stencil implemented " << endl;
 }
 
 vector<vector<double>> iterativeSchemes::generate_b(double hx, double hy) {
@@ -59,82 +59,75 @@ vector<vector<double>> iterativeSchemes::generate_b(double hx, double hy) {
   double initial_guess = 0;
   const int rows_of_b = m_nx - 2;
   const int columns_of_b = m_ny - 2;
-  cout << "Generating b" << "\n";
+  cout << "Generating b" << endl;
   vector<vector<double>> b(rows_of_b,
                            vector<double>(columns_of_b, initial_guess));
-
-  const double top_row = m_top / (hx * hx);
-  const double left_column = m_left / (hy * hy);
-  const double right_column = m_right / (hy * hy);
-  const double bottom_row = m_bottom / (hx * hx);
-  const double coeff = (-2) * M_PI * M_PI;
 
   for (int i = 0; i < rows_of_b; i++) {
     double x = (i + 1) * hx;
     for (int j = 0; j < columns_of_b; j++) {
       double y = (j + 1) * hy;
-      double source_function_value = coeff * sin(M_PI * x) * sin(M_PI * y);
+      double source_function_value =
+          (-2) * M_PI * M_PI * sin(M_PI * x) * sin(M_PI * y);
 
       // top left corner
       if ((i == 0) && (j == 0))
-        b[i][j] = source_function_value - (m_left / (hy * hy)) -
-                  (m_top / (hx * hx));
+        b[i][j] = source_function_value - (m_left / pow(hy, 2)) -
+                  (m_top / pow(hx, 2));
 
       // top right corner
       else if ((i == 0) && (j == columns_of_b - 1))
-        b[i][j] = source_function_value - (m_right / (hy * hy)) -
-                  (m_top / (hx * hx));
+        b[i][j] = source_function_value - (m_right / pow(hy, 2)) -
+                  (m_top / pow(hx, 2));
 
       // Bottom left corner
       else if ((i == (rows_of_b - 1)) && (j == 0)) {
-        b[i][j] = source_function_value - (m_left / (hy * hy)) -
-                  (m_bottom / (hx * hx));
+        b[i][j] = source_function_value - (m_left / pow(hy, 2)) -
+                  (m_bottom / pow(hx, 2));
       }
 
       // Bottom right corner
       else if ((i == (rows_of_b - 1)) && (j == (columns_of_b - 1)))
-        b[i][j] = source_function_value - ((m_right / (hy * hy))) -
-                  ((m_bottom / (hx * hx)));
+        b[i][j] = source_function_value - ((m_right / pow(hy, 2))) -
+                  ((m_bottom / pow(hx, 2)));
 
       // topmost row
       else if (i == 0)
-        b[i][j] = source_function_value - top_row;
+        b[i][j] = source_function_value - (m_top / pow(hx, 2));
 
       // leftmost column
       else if (j == 0)
-        b[i][j] = source_function_value - left_column;
+        b[i][j] = source_function_value - (m_left / pow(hy, 2));
 
       // rightmost column
       else if (j == (columns_of_b - 1))
-        b[i][j] = source_function_value - right_column;
+        b[i][j] = source_function_value - (m_right / pow(hy, 2));
 
       // bottommost row
       else if (i == (rows_of_b - 1))
-        b[i][j] = source_function_value - bottom_row;
+        b[i][j] = source_function_value - (m_bottom / pow(hx, 2));
 
       // internal nodes
       else
         b[i][j] = source_function_value;
     }
   }
-  cout << "\n";
+  cout << endl;
   return b;
 }
 
 void iterativeSchemes::gauss_seidel() {
   // double residual=1e-4;
-  cout << "\n Implementing Gauss Seidel with: " << "\n";
-  cout << "N_y " << m_ny << "\n";
-  cout << "N_x " << m_nx << "\n";
+  cout << "\n Implementing Gauss Seidel with: " << endl;
+  cout << "N_y " << m_ny << endl;
+  cout << "N_x " << m_nx << endl;
 
   if (m_source == 0) {
 
-    const double hx = 1.0 / (m_nx - 1);
-    const double hy = 1.0 / (m_ny - 1);
-    double a_kk = (-2) * ((1.0 / (hx * hx) + (1.0 / (hy * hy))));
-    a_kk = 1.0 / a_kk;
-    const double b_kk = (1.0 / (hy * hy));
-    const double c_kk = (1.0 / (hx * hx));
+    double hx = 1.0 / (m_nx - 1);
+    double hy = 1.0 / (m_ny - 1);
+    double a_kk = (-2) * ((1.0 / pow(hx, 2) + (1.0 / pow(hy, 2))));
+
     cout << "NO SOURCE!"
          << "\n";
 
@@ -143,16 +136,16 @@ void iterativeSchemes::gauss_seidel() {
       for (size_t i = 1; i < (m_nx - 1); i++) {
         for (size_t j = 1; j < (m_ny - 1); j++) {
           m_temperature_values[i][j] =
-              a_kk *
-              (- b_kk * (m_temperature_values[i][j - 1] +
+              (1.0 / a_kk) *
+              (-(1.0 / pow(hy, 2)) * (m_temperature_values[i][j - 1] +
                                       m_temperature_values[i][j + 1]) -
-               c_kk * (m_temperature_values[i + 1][j] +
+               (1.0 / pow(hx, 2)) * (m_temperature_values[i + 1][j] +
                                      m_temperature_values[i - 1][j]));
         }
       }
       num_iter = num_iter + 1;
     }
-    cout << "\n";
+    cout << endl;
   }
 
   else {
@@ -161,10 +154,8 @@ void iterativeSchemes::gauss_seidel() {
          << "\n";
     double hx = 1.0 / (m_nx - 1);
     double hy = 1.0 / (m_ny - 1);
-    double a_kk = (-2) * ((1.0 / (hx * hx) + (1.0 / (hy * hy))));
-    a_kk = 1.0 / a_kk;
-    const double b_kk = (1.0 / (hy * hy));
-    const double c_kk = (1.0 / (hx * hx));
+    double a_kk = (-2) * ((1.0 / pow(hx, 2) + (1.0 / pow(hy, 2))));
+
     int num_iter = 0;
 
     vector<vector<double>> b;
@@ -180,11 +171,11 @@ void iterativeSchemes::gauss_seidel() {
       for (size_t i = 1; i < (m_nx - 1); i++) {
         for (size_t j = 1; j < (m_ny - 1); j++) {
           temperature_values[i][j] =
-              a_kk *
+              (1.0 / a_kk) *
               (b[i - 1][j - 1] -
-               (b_kk *
+               ((1.0 / pow(hy, 2)) *
                 (temperature_values[i][j - 1] + temperature_values[i][j + 1])) -
-               (c_kk *
+               ((1.0 / pow(hx, 2)) *
                 (temperature_values[i + 1][j] + temperature_values[i - 1][j])));
         }
       }
@@ -209,7 +200,7 @@ void iterativeSchemes::unit_test() {
   } else if (m_unit_test_method == "Eight_point_stencil") {
     eight_point_stencil();
   } else {
-    cout << "Incorrect input. Exiting!!!" << "\n";
+    cout << "Incorrect input. Exiting!!!" << endl;
     exit(0);
   }
 
