@@ -53,7 +53,6 @@ int main(int argc, char **argv) {
 
   ITR->write_results();
   ITR->plot_results();
-  delete ITR;
 
   return 0;
 }
