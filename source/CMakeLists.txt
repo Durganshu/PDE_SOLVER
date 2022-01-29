@@ -29,7 +29,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # flags for the compiler in debug mode.
 #SET( CMAKE_CXX_FLAGS_DEBUG " -pg -g -Weffc++" )
-SET( CMAKE_CXX_FLAGS_DEBUG " -pg -g " )
+SET( CMAKE_CXX_FLAGS_DEBUG " -pg -g -fsanitize=address" )
 
 # flags for the compiler in release mode
 SET( CMAKE_CXX_FLAGS_RELEASE " -O3 -s -DNDEBUG" )
