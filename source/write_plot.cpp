@@ -68,7 +68,7 @@ void writePlot::plot(const int &nx, const int &ny,
                              "iterative_scheme"_a = iterative_method};
 
   py::exec(R"(
-    import gc
+    
     import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib.cm as cm
@@ -81,6 +81,9 @@ void writePlot::plot(const int &nx, const int &ny,
     data = np.genfromtxt(filename, delimiter=',')
 
     data1 = data[1:,:]
+
+    #nx = 101
+    #ny = 101
 
     row_values = range(0,nx)
 
@@ -103,26 +106,28 @@ void writePlot::plot(const int &nx, const int &ny,
             break
     
     
-    
+    #x = np.linspace(0,1,nx)
+    #y = np.linspace(0,1,ny)
+    #r = np.sqrt(x**2 + y**2)
+    #theta = np.arctan2(y,x)
+    #print(theta)
+    #print(np.shape(r))
+    #fig = plt.figure()
+    #ax = fig.add_subplot(111, polar = 'True')
+    #ax = fig.add_subplot(111)
     plt.imshow(np.transpose(data2),cmap = cm.jet, extent=[-0.5, 0.5, -0.5, 0.5])
+    #ax.imshow(np.transpose(data2),cmap = cm.jet)
+    #pc = ax.pcolormesh(theta, r, np.transpose(data2),cmap = cm.jet)
+    #pc = ax.pcolormesh(np.transpose(data2),cmap = cm.jet)
+    #fig.colorbar(pc)
+    #ax.set_theta_zero_location('N')
+    #ax.set_xticklabels(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'], color='red')
+    #ax.set_rlim(0, 1)
     plt.colorbar()
     plt.show()
 
     plt.savefig("../results/results.png")  #savefig, don't show
     
-    del filename
-    del data
-    del data1
-    del row_values
-    del col
-    del itr
-    del data2
-    del column
-    del locals
-    gc.collect();
-    
     )",
            py::globals(), locals);
-
-    py::finalize_interpreter();
 }
