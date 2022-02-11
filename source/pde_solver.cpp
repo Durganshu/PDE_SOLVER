@@ -1,4 +1,4 @@
-#include "pde_solver.h"
+#include "lib/pde_solver.h"
 
 pdeSolver::pdeSolver(const Json::Value jroot)
     : m_nx(jroot["mesh"]["nx"].asInt()), m_ny(jroot["mesh"]["ny"].asInt()),
@@ -92,7 +92,7 @@ void pdeSolver::write_results() {
 }
 
 void pdeSolver::plot_results() {
-  cout<<"Plotting the results...\n";
+  cout << "Plotting the results...\n";
   writePlot *handle = new writePlot();
   handle->plot(m_nx, m_ny, m_iterative_scheme);
   delete handle;

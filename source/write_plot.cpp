@@ -1,11 +1,12 @@
-#include "write_plot.h"
+#include "lib/write_plot.h"
 
 void writePlot::write_csv(const vector<double> x_values,
                           const vector<double> y_values,
                           const vector<vector<double>> &temperature,
                           const vector<vector<double>> &reference_temperature) {
 
-  cout << "Writing results....." << "\n";
+  cout << "Writing results....."
+       << "\n";
   ofstream myfile;
   string file_path = "../results/results.csv";
   myfile.open(file_path);
@@ -21,7 +22,8 @@ void writePlot::write_csv(const vector<double> x_values,
            << ","
            << "Analytical Solution (in K)"
            << ","
-           << "Absolute Error" << "\n";
+           << "Absolute Error"
+           << "\n";
     for (int i = 0; i < nx; i++) {
       for (int j = 0; j < ny; j++) {
         double error = abs(reference_temperature[i][j] - temperature[i][j]);
@@ -41,7 +43,8 @@ void writePlot::write_csv(const vector<double> x_values,
            << ","
            << "Y"
            << ","
-           << "Numerical Solution (in K)" << "\n";
+           << "Numerical Solution (in K)"
+           << "\n";
 
     for (int i = 0; i < nx; i++) {
       for (int j = 0; j < ny; j++) {
@@ -122,5 +125,4 @@ void writePlot::plot(const int &nx, const int &ny,
     
     )",
            py::globals(), locals);
-
 }

@@ -16,6 +16,9 @@ public:
 
   void gauss_seidel();
 
+  double gauss_seidel_residual(std::vector<std::vector<double>>, double, double,
+                               std::vector<std::vector<double>>);
+
   void unit_test();
 };
 

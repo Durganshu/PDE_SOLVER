@@ -42,7 +42,7 @@ find_package(pybind11 REQUIRED)
 
 # Setting the default build type.
 IF( NOT CMAKE_BUILD_TYPE )
-  SET( CMAKE_BUILD_TYPE Debug )
+  SET( CMAKE_BUILD_TYPE Release )
 ENDIF()
 
 ###############################################################################

@@ -1,4 +1,4 @@
-# PDE Solver
+# PDE Solver_ Group DH
 
 # Project Overview
 In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T- S(x,y) =0`$.
@@ -20,6 +20,10 @@ The user has the option either to include the source or exclude it in the JSON i
 - Mesh can be imported from an external directory as *.csv (Comma-separated Values) file.
 - Gauss-Seidel solver has been added as an extended functionality.
 - Python Matplotlib has been added in the C++ code using the pybind11 module.
+
+# Updates in Sprint 3
+- Identified performance bottlenecks and improved runtime by carefully eliminating them.
+
 
 # Installing Python3, NumPy and Matplotlib in Ubuntu Linux 
 
