@@ -8,10 +8,11 @@ $`S(x,y)=-2 \pi^2 sin(\pi x)(\pi y)`$ here, "x" and "y" are the coordinates on t
 
 The user has the option either to include the source or exclude it in the JSON input file.
 
-
 # General Comments
 - No external C++ library required 
 - Matplotlib and NumPy modules in python3 required for visualization of the computed results. 
+
+The project has been completed in three sprints. The sprint 1 was a basic non-OOP implementation with all the functionalities in main.cpp. That was a draft code and we did all the improvements over that.
 
 # Updates in Sprint 2
 - The whole package is now Object oriented with different functionalities implemented as different classes.
