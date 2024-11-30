@@ -1,4 +1,4 @@
-# PDE Solver_ Group DH
+# PDE Solver
 
 # Project Overview
 In this project we are trying to obtain the steady state solution of the 2D Heat Equation by solving  $`\nabla^2 T- S(x,y) =0`$.
